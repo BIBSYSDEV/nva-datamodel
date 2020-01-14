@@ -1,0 +1,195 @@
+@prefix : <http://nva.unit.no/ontology#> .
+@prefix datacite: <http://purl.org/spar/datacite/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Publication a rdfs:Class ;
+  rdfs:comment "Base concept for all items in NVA" .
+
+# Publication-related concepts
+
+:EntityDescription a rdfs:Class ;
+  rdfs:comment "A description of Publication" .
+
+:Contributor a rdfs:Class ;
+  rdfs:comment "A Contributor of a Publication" .
+
+:Organization a rdfs:Class ;
+  rdfs:comment "An Organization" .
+
+:Publisher a rdfs:Class ;
+  rdfs:comment "A publishing organization" ;
+  rdfs:subClassOf :Organization .
+
+:Role a rdfs:Class ;
+  rdfs:comment "A Role in the publication process" .
+
+:PublicationType a rdfs:Class ;
+  rdfs:comment "Base class for Publication types" .
+
+:JournalArticle a rdfs:Class ;
+  rdfs:subClassOf :PublicationType ;
+  rdfs:comment "A publication type that is published in an academic Journal" .
+
+:License a rdfs:Class ;
+  rdfs:comment "A license describing the legal rights associated with a Publication" .
+
+:Date a rdfs:Class ;
+  rdfs:comment "A date associated with a Publication" .
+
+:Publisher a rdfs:Class ;
+  rdfs:comment "A publisher of a Publication" .
+
+# Publication status concepts
+
+:Status a rdfs:Class ;
+  rdfs:comment "A status of a Publication in the NVA workflow" .
+
+:PublishedStatus a rdfs:Class ;
+  rdfs:subClassOf :Status ;
+  rdfs:comment "The status of a published Publication" .
+
+# Files
+
+:FileSet a rdfs:Class ;
+  rdfs:comment "The set of Files associated with a Publication" .
+
+:File a rdfs:Class ;
+  rdfs:comment "A File associated with a Publication" .
+
+# Roles
+
+:CreatorRole a rdfs:Class ;
+  rdfs:comment "The base class for all creator roles" ;
+  rdfs:subClassOf :Role .
+
+:ContributorRole a rdfs:Class ;
+  rdfs:comment "The base class for all contributor roles" ;
+  rdfs:subClassOf :Role .
+
+# Relations
+# Basic relations
+
+:hasIdentifier a rdf:Property ;
+  rdfs:comment "An identifier for a thing" ;
+  rdfs:subPropertyOf dcterms:identifier ;
+  rdfs:domain :Publication, :Contributor, :File, :Organization, :License ;
+  rdfs:range xsd:string .
+
+# Linking mechanisms
+
+:hasEntityDescription a rdf:Property ;
+  rdfs:comment "The relationship between a Publication and its description" ;
+  rdfs:domain :Publication ;
+  rdfs:range :EntityDescription .
+
+
+# Dates
+
+:created a rdf:Property ;
+  rdfs:comment "The date and time at which a Publication (the NVA concept, not the document itself) was created" ;
+  rdfs:domain :Publication ;
+  rdfs:range xsd:dateTime ;
+  rdfs:subPropertyOf dcterms:created .
+
+:modified a rdf:Property ;
+  rdfs:comment "The date and time at which a Publication (the NVA concept, not the document itself) was modified" ;
+  rdfs:domain :Publication ;
+  rdfs:range xsd:dateTime ;
+  rdfs:subPropertyOf dcterms:modified .
+
+:publishedDate a rdf:Property ;
+  rdfs:comment "The date and time at which a Publication (the NVA concept, not the document itself) was published in NVA" ;
+  rdfs:domain :Publication ;
+  rdfs:range xsd:dateTime .
+
+:indexedDate a rdf:Property ;
+  rdfs:comment "The date and time at which a Publication (the NVA concept, not the document itself) was indexed in NVA" ;
+  rdfs:domain :Publication ;
+  rdfs:range xsd:dateTime .
+
+# Persons and identities
+
+:owner a rdf:Property ;
+  rdfs:comment "The owner of a file defined with an identifier" ;
+  rdfs:domain :Publication ;
+  rdfs:range xsd:string .
+
+:hasContributor a rdf:Property ;
+  rdfs:comment "The Contributor to a Publication in NVA" ;
+  rdfs:domain :EntityDescription ;
+  rdfs:range :Contributor .
+
+:hasTitle a rdf:Property ;
+  rdfs:comment "The language-tagged title object related to a Entity Description" ;
+  rdfs:domain :EntityDescription, :License, :Organization, :File ;
+  rdfs:range rdf:langString .
+
+:hasIdentity a rdf:Property ;
+  rdfs:comment "The identifier for a contributor as an IRI" ;
+  rdfs:domain :Contributor ;
+  rdfs:range rdfs:Resource .
+
+:hasRole a rdf:Property ;
+  rdfs:comment "The Role of the Contributor" ;
+  rdfs:domain :Contributor ;
+  rdfs:range :Role .
+
+:hasHandle a rdf:Property ;
+  rdfs:comment "The Handle (HNDL) of a Publication" ;
+  rdfs:domain :Publication ;
+  rdfs:range xsd:anyURI .
+
+:hasLink a rdf:Property ;
+  rdfs:comment "A link to an external resource" ;
+  rdfs:domain :License, :Publication ;
+  rdfs:range xsd:anyURI .
+
+:hasYear a rdf:Property ;
+  rdfs:comment "The year of a Date" ;
+  rdfs:domain :Date ;
+  rdfs:range xsd:gYear .
+
+:hasMonth a rdf:Property ;
+  rdfs:comment "The month of a Date" ;
+  rdfs:domain :Date ;
+  rdfs:range xsd:gMonth .
+
+:hasDay a rdf:Property ;
+  rdfs:comment "The day of a date" ;
+  rdfs:domain :Date ;
+  rdfs:range xsd:gDay .
+
+:hasFile a rdf:Property ;
+  rdfs:comment "A file belonging to a FileSet" ;
+  rdfs:domain :FileSet ;
+  rdfs:range :File .
+
+:hasMimeType a rdf:Property ;
+  rdfs:comment "The mime-type string associated with a File" ;
+  rdfs:domain :File ;
+  rdfs:range xsd:string .
+
+:hasSize a rdf:Property ;
+  rdfs:comment "The file size of a File" ;
+  rdfs:domain :File ;
+  rdfs:range xsd:long .
+
+:hasDate a rdf:Property ;
+  rdfs:comment "A date associated with a Publication" ;
+  rdfs:domain :EntityDescription ;
+  rdfs:range :Date .
+
+:hasType a rdf:Property ;
+  rdfs:comment "A closed-category type associated with a Publication" ;
+  rdfs:domain :EntityDescription ;
+  rdfs:range :PublicationType .
+
+# Status
+
+:hasStatus a rdf:Property ;
+  rdfs:comment "The status of a document in NVA" ;
+  rdfs:domain :Publication ;
+  rdfs:range :Status .
