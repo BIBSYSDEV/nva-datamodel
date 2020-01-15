@@ -121,7 +121,7 @@
 
 :hasTitle a rdf:Property ;
   rdfs:comment "The language-tagged title object related to a Entity Description" ;
-  rdfs:domain :EntityDescription, :License, :Organization, :File ;
+  rdfs:domain :EntityDescription, :License, :Organization ;
   rdfs:range rdf:langString .
 
 :hasIdentity a rdf:Property ;
@@ -198,6 +198,11 @@
   rdfs:comment "The FileSet related to a Publication" ;
   rdfs:domain :Publication ;
   rdfs:range :FileSet .
+
+:hasName a rdf:Property ;
+  rdfs:comment "The name of a File" ;
+  rdfs:domain :File ;
+  rdfs:range xsd:string .
 
 # Status
 
