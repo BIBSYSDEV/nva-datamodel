@@ -1,0 +1,53 @@
+{
+	"@context": {
+		"@vocab": "http://nva.unit.no/ontology#",
+		"xsd": "http://www.w3.org/2001/XMLSchema#",
+		"id": "@id",
+		"type": "@type",
+		"language": "@language",
+		"value": "@value",
+		"created": {
+			"@type": "xsd:dateTime"
+		},
+		"modified": {
+			"@type": "xsd:dateTime"
+		},
+		"hasIdentity": {
+			"@type": "@id"
+		},
+		"hasType": {
+			"@type": "@id"
+		},
+		"hasRole": {
+			"@type": "@id"
+		},
+		"hasYear": {
+			"@type": "xsd:gYear"
+		},
+		"hasMonth": {
+			"@type": "xsd:gMonth"
+		},
+		"hasDay": {
+			"@type": "xsd:gDay"
+		},
+		"hasSize": {
+			"@type": "xsd:long"
+		},
+		"hasLink": {
+			"@type": "@id"
+		},
+		"hasStatus": {
+			"@type": "@id"
+		},
+		"indexedDate": {
+			"@type": "xsd:dateTime"
+		},
+		"publishedDate": {
+			"@type": "xsd:dateTime"
+		},
+        "hasFile": {
+          "@container": "@set"
+        }
+	},
+	"@type": "Publication"
+}

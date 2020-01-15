@@ -1,0 +1,49 @@
+_:genid1 <http://nva.unit.no/ontology#hasTitle> "Unit"@en .
+_:genid1 <http://nva.unit.no/ontology#hasTitle> "Unit"@nb .
+_:genid1 <http://nva.unit.no/ontology#hasTitle> "Unit"@nn .
+_:genid1 <http://nva.unit.no/ontology#hasTitle> "Unit"@se .
+_:genid1 <http://nva.unit.no/ontology#hasIdentifier> "000000001" .
+_:genid2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://nva.unit.no/ontology#Date> .
+_:genid2 <http://nva.unit.no/ontology#hasYear> "2019"^^<http://www.w3.org/2001/XMLSchema#gYear> .
+_:genid2 <http://nva.unit.no/ontology#hasMonth> "01"^^<http://www.w3.org/2001/XMLSchema#gMonth> .
+_:genid2 <http://nva.unit.no/ontology#hasDay> "01"^^<http://www.w3.org/2001/XMLSchema#gDay> .
+_:genid3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://nva.unit.no/ontology#Contributor> .
+_:genid3 <http://nva.unit.no/ontology#hasIdentifier> "000001" .
+_:genid3 <http://nva.unit.no/ontology#hasIdentity> <http://link.to.base/0000001> .
+_:genid3 <http://nva.unit.no/ontology#hasRole> <http://nva.unit.no/ontology#CreatorRole> .
+_:genid4 <http://nva.unit.no/ontology#hasType> <http://nva.unit.no/ontology#JournalArticle> .
+_:genid4 <http://nva.unit.no/ontology#hasTitle> "A journey towards a valid data model"@en .
+_:genid4 <http://nva.unit.no/ontology#hasTitle> "En reise mot en valid datamodell"@nb .
+_:genid4 <http://nva.unit.no/ontology#hasDate> _:genid2 .
+_:genid4 <http://nva.unit.no/ontology#hasContributor> _:genid3 .
+_:genid5 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://nva.unit.no/ontology#Organization> .
+_:genid5 <http://nva.unit.no/ontology#hasIdentifier> "0000001" .
+_:genid5 <http://nva.unit.no/ontology#hasTitle> "Norwegian Univeristy of Science and Technology"@en .
+_:genid5 <http://nva.unit.no/ontology#hasTitle> "Noregs tekniske og naturvitskaplege universitet"@nn .
+_:genid5 <http://nva.unit.no/ontology#hasTitle> "Norges tekniske og naturvitenskaplige universitet"@nb .
+_:genid6 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://nva.unit.no/ontology#License> .
+_:genid6 <http://nva.unit.no/ontology#hasTitle> "CC BY 4.0"@en .
+_:genid6 <http://nva.unit.no/ontology#hasIdentifier> "CCBY4.0" .
+_:genid6 <http://nva.unit.no/ontology#hasLink> <http://link.to.license> .
+_:genid7 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://nva.unit.no/ontology#File> .
+_:genid7 <http://nva.unit.no/ontology#hasIdentifier> "0000001" .
+_:genid7 <http://nva.unit.no/ontology#hasMimeType> "application/pdf" .
+_:genid7 <http://nva.unit.no/ontology#hasName> "my_lovely_file.pdf" .
+_:genid7 <http://nva.unit.no/ontology#hasSize> "22"^^<http://www.w3.org/2001/XMLSchema#long> .
+_:genid8 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://nva.unit.no/ontology#FileSet> .
+_:genid8 <http://nva.unit.no/ontology#hasFile> _:genid7 .
+<http://nva.unit.no/publication/000001> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://nva.unit.no/ontology#Publication> .
+<http://nva.unit.no/publication/000001> <http://nva.unit.no/ontology#created> "2019-01-13T15:31:55.12345+01:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+<http://nva.unit.no/publication/000001> <http://nva.unit.no/ontology#hasStatus> <http://nva.unit.no/ontology#PublishedStatus> .
+<http://nva.unit.no/publication/000001> <http://nva.unit.no/ontology#hasHandle> <https://hndl.net/some/link> .
+<http://nva.unit.no/publication/000001> <http://nva.unit.no/ontology#publishedDate> "2019-01-13T15:31:55.12345+01:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+<http://nva.unit.no/publication/000001> <http://nva.unit.no/ontology#modified> "2019-01-14T15:31:55.12345+01:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+<http://nva.unit.no/publication/000001> <http://nva.unit.no/ontology#owner> "zzz@unit.no" .
+<http://nva.unit.no/publication/000001> <http://nva.unit.no/ontology#indexedDate> "2019-01-14T15:31:55.13001+01:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+<http://nva.unit.no/publication/000001> <http://nva.unit.no/ontology#hasIdentifier> "000001" .
+<http://nva.unit.no/publication/000001> <http://nva.unit.no/ontology#hasLink> <http://nva.unit.no/publication/000001> .
+<http://nva.unit.no/publication/000001> <http://nva.unit.no/ontology#hasPublisher> _:genid1 .
+<http://nva.unit.no/publication/000001> <http://nva.unit.no/ontology#hasEntityDescription> _:genid4 .
+<http://nva.unit.no/publication/000001> <http://nva.unit.no/ontology#hasPublisher> _:genid5 .
+<http://nva.unit.no/publication/000001> <http://nva.unit.no/ontology#hasLicense> _:genid6 .
+<http://nva.unit.no/publication/000001> <http://nva.unit.no/ontology#hasFileSet> _:genid8 .

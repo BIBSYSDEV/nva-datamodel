@@ -1,0 +1,177 @@
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "_:N8a1bc54d39844a5ab0d89dc0d7c09c94",
+      "@type": "http://nva.unit.no/ontology#FileSet",
+      "http://nva.unit.no/ontology#hasFile": {
+        "@id": "_:N8948579d7d3a4889af5d3f3a8a5b6802"
+      }
+    },
+    {
+      "@id": "_:Nc1c398b992ef41609a11dd538edc6ba2",
+      "@type": "http://nva.unit.no/ontology#Contributor",
+      "http://nva.unit.no/ontology#hasIdentifier": "000001",
+      "http://nva.unit.no/ontology#hasIdentity": {
+        "@id": "http://link.to.base/0000001"
+      },
+      "http://nva.unit.no/ontology#hasRole": {
+        "@id": "http://nva.unit.no/ontology#CreatorRole"
+      }
+    },
+    {
+      "@id": "_:N1d0c68fa3cf54133b4fb366c1d1db531",
+      "@type": "http://nva.unit.no/ontology#Date",
+      "http://nva.unit.no/ontology#hasDay": {
+        "@type": "xsd:gDay",
+        "@value": "01"
+      },
+      "http://nva.unit.no/ontology#hasMonth": {
+        "@type": "xsd:gMonth",
+        "@value": "01"
+      },
+      "http://nva.unit.no/ontology#hasYear": {
+        "@type": "xsd:gYear",
+        "@value": "2019"
+      }
+    },
+    {
+      "@id": "_:Nb8238c589ef34d4496e81e809f6f8897",
+      "http://nva.unit.no/ontology#hasContributor": {
+        "@id": "_:Nc1c398b992ef41609a11dd538edc6ba2"
+      },
+      "http://nva.unit.no/ontology#hasDate": {
+        "@id": "_:N1d0c68fa3cf54133b4fb366c1d1db531"
+      },
+      "http://nva.unit.no/ontology#hasTitle": [
+        {
+          "@language": "en",
+          "@value": "A journey towards a valid data model"
+        },
+        {
+          "@language": "nb",
+          "@value": "En reise mot en valid datamodell"
+        }
+      ],
+      "http://nva.unit.no/ontology#hasType": {
+        "@id": "http://nva.unit.no/ontology#JournalArticle"
+      }
+    },
+    {
+      "@id": "_:N05c67ed810634949b628581971edc9f3",
+      "http://nva.unit.no/ontology#hasIdentifier": "000000001",
+      "http://nva.unit.no/ontology#hasTitle": [
+        {
+          "@language": "nn",
+          "@value": "Unit"
+        },
+        {
+          "@language": "se",
+          "@value": "Unit"
+        },
+        {
+          "@language": "en",
+          "@value": "Unit"
+        },
+        {
+          "@language": "nb",
+          "@value": "Unit"
+        }
+      ]
+    },
+    {
+      "@id": "http://nva.unit.no/publication/000001",
+      "@type": "http://nva.unit.no/ontology#Publication",
+      "http://nva.unit.no/ontology#created": {
+        "@type": "xsd:dateTime",
+        "@value": "2019-01-13T15:31:55.123450+01:00"
+      },
+      "http://nva.unit.no/ontology#hasEntityDescription": {
+        "@id": "_:Nb8238c589ef34d4496e81e809f6f8897"
+      },
+      "http://nva.unit.no/ontology#hasFileSet": {
+        "@id": "_:N8a1bc54d39844a5ab0d89dc0d7c09c94"
+      },
+      "http://nva.unit.no/ontology#hasHandle": {
+        "@id": "https://hndl.net/some/link"
+      },
+      "http://nva.unit.no/ontology#hasIdentifier": "000001",
+      "http://nva.unit.no/ontology#hasLicense": {
+        "@id": "_:Naae7d4b293414e729ca9a3247929d1db"
+      },
+      "http://nva.unit.no/ontology#hasLink": {
+        "@id": "http://nva.unit.no/publication/000001"
+      },
+      "http://nva.unit.no/ontology#hasPublisher": [
+        {
+          "@id": "_:N62ffcb4da1b04c63baa376eca318d4fc"
+        },
+        {
+          "@id": "_:N05c67ed810634949b628581971edc9f3"
+        }
+      ],
+      "http://nva.unit.no/ontology#hasStatus": {
+        "@id": "http://nva.unit.no/ontology#PublishedStatus"
+      },
+      "http://nva.unit.no/ontology#indexedDate": {
+        "@type": "xsd:dateTime",
+        "@value": "2019-01-14T15:31:55.130010+01:00"
+      },
+      "http://nva.unit.no/ontology#modified": {
+        "@type": "xsd:dateTime",
+        "@value": "2019-01-14T15:31:55.123450+01:00"
+      },
+      "http://nva.unit.no/ontology#owner": "zzz@unit.no",
+      "http://nva.unit.no/ontology#publishedDate": {
+        "@type": "xsd:dateTime",
+        "@value": "2019-01-13T15:31:55.123450+01:00"
+      }
+    },
+    {
+      "@id": "_:N62ffcb4da1b04c63baa376eca318d4fc",
+      "@type": "http://nva.unit.no/ontology#Organization",
+      "http://nva.unit.no/ontology#hasIdentifier": "0000001",
+      "http://nva.unit.no/ontology#hasTitle": [
+        {
+          "@language": "en",
+          "@value": "Norwegian Univeristy of Science and Technology"
+        },
+        {
+          "@language": "nb",
+          "@value": "Norges tekniske og naturvitenskaplige universitet"
+        },
+        {
+          "@language": "nn",
+          "@value": "Noregs tekniske og naturvitskaplege universitet"
+        }
+      ]
+    },
+    {
+      "@id": "_:Naae7d4b293414e729ca9a3247929d1db",
+      "@type": "http://nva.unit.no/ontology#License",
+      "http://nva.unit.no/ontology#hasIdentifier": "CCBY4.0",
+      "http://nva.unit.no/ontology#hasLink": {
+        "@id": "http://link.to.license"
+      },
+      "http://nva.unit.no/ontology#hasTitle": {
+        "@language": "en",
+        "@value": "CC BY 4.0"
+      }
+    },
+    {
+      "@id": "_:N8948579d7d3a4889af5d3f3a8a5b6802",
+      "@type": "http://nva.unit.no/ontology#File",
+      "http://nva.unit.no/ontology#hasIdentifier": "0000001",
+      "http://nva.unit.no/ontology#hasMimeType": "application/pdf",
+      "http://nva.unit.no/ontology#hasName": "my_lovely_file.pdf",
+      "http://nva.unit.no/ontology#hasSize": {
+        "@type": "xsd:long",
+        "@value": "22"
+      }
+    }
+  ]
+}

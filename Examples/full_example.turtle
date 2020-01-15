@@ -1,0 +1,60 @@
+@prefix : <http://nva.unit.no/ontology#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://nva.unit.no/publication/000001> a :Publication ;
+  :created "2019-01-13T15:31:55.12345+01:00"^^xsd:dateTime ;
+  :hasStatus :PublishedStatus ;
+  :hasHandle <https://hndl.net/some/link> ;
+  :publishedDate "2019-01-13T15:31:55.12345+01:00"^^xsd:dateTime ;
+  :modified "2019-01-14T15:31:55.12345+01:00"^^xsd:dateTime ;
+  :owner "zzz@unit.no" ;
+  :indexedDate "2019-01-14T15:31:55.13001+01:00"^^xsd:dateTime ;
+  :hasIdentifier "000001" ;
+  :hasLink <http://nva.unit.no/publication/000001> ;
+  :hasPublisher [
+                  :hasTitle "Unit"@en ;
+                  :hasTitle "Unit"@nb ;
+                  :hasTitle "Unit"@nn ;
+                  :hasTitle "Unit"@se ;
+                  :hasIdentifier "000000001"
+                ] ;
+  :hasEntityDescription [
+                          :hasType :JournalArticle ;
+                          :hasTitle "A journey towards a valid data model"@en ;
+                          :hasTitle "En reise mot en valid datamodell"@nb ;
+                          :hasDate [
+                                     a :Date ;
+                                     :hasYear "2019"^^xsd:gYear ;
+                                     :hasMonth "01"^^xsd:gMonth ;
+                                     :hasDay "01"^^xsd:gDay
+                                ] ;
+                          :hasContributor [
+                                   a :Contributor ;
+                                   :hasIdentifier "000001" ;
+                                   :hasIdentity <http://link.to.base/0000001> ;
+                                   :hasRole :CreatorRole
+                                ]
+                        ] ;
+  :hasPublisher [
+                  a :Organization ;
+                  :hasIdentifier "0000001" ;
+                  :hasTitle "Norwegian Univeristy of Science and Technology"@en ;
+                  :hasTitle "Noregs tekniske og naturvitskaplege universitet"@nn ;
+                  :hasTitle "Norges tekniske og naturvitenskaplige universitet"@nb
+                ] ;
+  :hasLicense [
+                a :License ;
+                :hasTitle "CC BY 4.0"@en ;
+                :hasIdentifier "CCBY4.0" ;
+                :hasLink <http://link.to.license>
+              ] ;
+  :hasFileSet [
+                a :FileSet ;
+                :hasFile [
+                           a :File ;
+                           :hasIdentifier "0000001" ;
+                           :hasMimeType "application/pdf" ;
+                           :hasName "my_lovely_file.pdf" ;
+                           :hasSize "22"^^xsd:long
+                         ]
+              ] .
