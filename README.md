@@ -3,6 +3,8 @@ Data model for NVA
 
 Basic data model described in RDF.
 
+This description allows us to create mappings for Dublin Core and Datacite via rdfs:isSubClassOf and rdfs:isSubPropertyOf.
+
 Can be visualized with [WebVOWL](http://www.visualdataweb.de/webvowl/#iri=https://raw.githubusercontent.com/BIBSYSDEV/nva-datamodel/develop/ontology.ttl)
 
 ## Examples
