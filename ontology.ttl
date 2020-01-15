@@ -194,6 +194,11 @@
   rdfs:domain :Publication ;
   rdfs:range :License .
 
+:hasFileSet a rdf:Property ;
+  rdfs:comment "The FileSet related to a Publication" ;
+  rdfs:domain :Publication ;
+  rdfs:range :FileSet .
+
 # Status
 
 :hasStatus a rdf:Property ;
