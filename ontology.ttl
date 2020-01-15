@@ -39,9 +39,6 @@
 :Date a rdfs:Class ;
   rdfs:comment "A date associated with a Publication" .
 
-:Publisher a rdfs:Class ;
-  rdfs:comment "A publisher of a Publication" .
-
 # Publication status concepts
 
 :Status a rdfs:Class ;
@@ -186,6 +183,11 @@
   rdfs:comment "A closed-category type associated with a Publication" ;
   rdfs:domain :EntityDescription ;
   rdfs:range :PublicationType .
+
+:hasPublisher a rdf:Property ;
+  rdfs:comment "The publisher of a Publication" ;
+  rdfs:domain :Publication ;
+  rdfs:range :Publisher .
 
 # Status
 
