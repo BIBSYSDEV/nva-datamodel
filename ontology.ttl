@@ -189,6 +189,11 @@
   rdfs:domain :Publication ;
   rdfs:range :Publisher .
 
+:hasLicense a rdf:Property ;
+  rdfs:comment "The license associated with a Publication" ;
+  rdfs:domain :Publication ;
+  rdfs:range :License .
+
 # Status
 
 :hasStatus a rdf:Property ;
