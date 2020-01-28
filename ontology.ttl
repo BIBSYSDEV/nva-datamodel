@@ -57,7 +57,6 @@
   rdfs:comment "A File associated with a Publication" .
 
 # Roles
-
 :CreatorRole a rdfs:Class ;
   rdfs:comment "The base class for all creator roles" ;
   rdfs:subClassOf :Role .
@@ -210,3 +209,8 @@
   rdfs:comment "The status of a document in NVA" ;
   rdfs:domain :Publication ;
   rdfs:range :Status .
+
+:sequence a rdf:Property ;
+  rdfs:comment "A place in a sequence" ;
+  rdfs:domain :Contributor ;
+  rdfs:range xsd:nonNegativeInteger .
