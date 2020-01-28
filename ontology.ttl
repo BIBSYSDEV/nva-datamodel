@@ -210,7 +210,7 @@
   rdfs:domain :Publication ;
   rdfs:range :Status .
 
-:sequence a rdf:Property ;
+:hasSequence a rdf:Property ;
   rdfs:comment "A place in a sequence" ;
   rdfs:domain :Contributor ;
   rdfs:range xsd:nonNegativeInteger .
