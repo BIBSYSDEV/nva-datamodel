@@ -219,3 +219,23 @@
   rdfs:comment "The relationship between a Contributor and an Organization" ;
   rdfs:domain :Contributor ;
   rdfs:range :Organization .
+
+:hasMainTitle a rdf:Property ;
+  rdfs:subPropertyOf dcterms:title ;
+  rdfs:comment "The given title of a Publication" ;
+  rdfs:domain :EntityDescription ;
+  rdfs:range xsd:string .
+
+:hasAlternativeTitle a rdf:Property ;
+  rdfs:subPropertyOf dcterms:title ;
+  rdfs:comment "An alternative title associated with a Publication, including translations" ;
+  rdfs:domain :EntityDescription ;
+  rdfs:range rdf:langString .
+
+:hasLanguage a rdf:Property ;
+  rdfs:subPropertyOf dcterms:language ;
+  rdfs:comment "The language which is required to usefully interpret the Publication" ;
+  rdfs:domain :EntityDescription ;
+  rdfs:range xsd:anyURI .
+
+
