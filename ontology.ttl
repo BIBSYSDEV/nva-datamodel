@@ -214,3 +214,8 @@
   rdfs:comment "A place in a sequence" ;
   rdfs:domain :Contributor ;
   rdfs:range xsd:nonNegativeInteger .
+
+:hasAffiliation a rdf:Property ;
+  rdfs:comment "The relationship between a Contributor and an Organization" ;
+  rdfs:domain :Contributor ;
+  rdfs:range :Organization .
