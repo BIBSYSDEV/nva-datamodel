@@ -238,4 +238,25 @@
   rdfs:domain :EntityDescription ;
   rdfs:range xsd:anyURI .
 
+:hasArpId a rdf:Property ;
+  rdfs:subPropertyOf dcterms:identifier ;
+  rdfs:comment "This is an ARP identifier sourced from a third party, which must be verified and fully qualified before it is used as :hasIdentifier" ;
+  rdfs:domain :Contributor ;
+  rdfs:range xsd:string .
+
+:hasOrcid a rdf:Property ;
+  rdfs:subPropertyOf dcterms:identifier ;
+  rdfs:comment "An externally sourced ORCID" ;
+  rdfs:domain :Contributor ;
+  rdfs:range xsd:string .
+
+:hasAffiliation a rdf:Property ;
+  rdfs:comment "The affiliation of a contributor" ;
+  rdfs:domain :Contributor ;
+  rdfs:range xsd:anyURI .
+
+:hasImportedAffiliation a rdf:Property ;
+  rdfs:comment "The affiliation of a contributor from a third party source, which is used to source a fully qualified IRI to Organization register" ; ;
+  rdfs:domain :Contributor ;
+  rdfs:range xsd:string .
 
