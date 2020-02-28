@@ -118,10 +118,15 @@
   rdfs:domain :EntityDescription ;
   rdfs:range :Contributor .
 
-:hasTitle a rdf:Property ;
+:hasLabel a rdf:Property ;
   rdfs:comment "The language-tagged title object related to a Entity Description" ;
-  rdfs:domain :EntityDescription, :License, :Organization ;
+  rdfs:domain :License, :Organization ;
   rdfs:range rdf:langString .
+
+:hasName a rdf:Property ;
+  rdfs:comment "The name of a thing" ;
+  rdfs:domain :File, :Identity ;
+  rdfs:range xsd:string .
 
 :hasIdentity a rdf:Property ;
   rdfs:comment "The identity of a contributor" ;
@@ -201,10 +206,6 @@
   rdfs:domain :Publication ;
   rdfs:range :FileSet .
 
-:hasName a rdf:Property ;
-  rdfs:comment "The name of a File" ;
-  rdfs:domain :File, :Identity ;
-  rdfs:range xsd:string .
 
 # Status
 
