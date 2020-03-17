@@ -242,6 +242,12 @@
   rdfs:domain :EntityDescription ;
   rdfs:range xsd:anyURI .
 
+:hasAbstract a rdf:Property ;
+  rdfs:subPropertyOf dcterms:description ;
+  rdfs:comment "The original language abstract for the publication" ;
+  rdfs:domain :EntityDescription ;
+  rdfs:range xsd:string .
+
 :hasArpId a rdf:Property ;
   rdfs:subPropertyOf dcterms:identifier ;
   rdfs:comment "This is an ARP identifier sourced from a third party, which must be verified and fully qualified before it is used as :hasIdentifier" ;
