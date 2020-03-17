@@ -254,6 +254,12 @@
   rdfs:domain :EntityDescription ;
   rdfs:range xsd:string .
 
+:hasDescription a rdf:Property ;
+  rdfs:subPropertyOf dcterms:description ;
+  rdfs:comment "A free-text description of the publication" ;
+  rdfs:domain :EntityDescription ;
+  rdfs:range xsd:string .
+
 :hasArpId a rdf:Property ;
   rdfs:subPropertyOf dcterms:identifier ;
   rdfs:comment "This is an ARP identifier sourced from a third party, which must be verified and fully qualified before it is used as :hasIdentifier" ;
