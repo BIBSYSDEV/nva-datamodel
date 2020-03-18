@@ -266,6 +266,19 @@
   rdfs:domain :EntityDescription ;
   rdfs:range xsd:string .
 
+:Pages a rdfs:Class ;
+  rdfs:comment "The extent of a document" .
+
+:begins a rdf:Property ;
+  rdfs:comment "The starting point of a range" ;
+  rdfs:domain :Pages ;
+  rdfs:range xsd:string .
+
+:ends a rdf:Property ;
+  rdfs:comment "The ending point of a range" ;
+  rdfs:domain :Pages ;
+  rdfs:range xsd:string .
+
 :hasArpId a rdf:Property ;
   rdfs:subPropertyOf dcterms:identifier ;
   rdfs:comment "This is an ARP identifier sourced from a third party, which must be verified and fully qualified before it is used as :hasIdentifier" ;
