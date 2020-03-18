@@ -258,7 +258,7 @@
         rdfs:subPropertyOf dcterms:subject ;
         rdfs:comment "A NPI subject heading identifier, see https://npi.nsd.no/dok/bakgrunn2003/Norskvitdisinnst.pdf" ;
         rdfs:domain :EntityDescription ;
-        rdfs:range xsd:anyURI .
+        rdfs:range xsd:string .
 
 :hasArpId a rdf:Property ;
   rdfs:subPropertyOf dcterms:identifier ;
