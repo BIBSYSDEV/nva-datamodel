@@ -271,7 +271,7 @@
 
 :hasPages a rdf:Property ;
   rdfs:comment "The relationship between a pages object and an EntityDescription" ;
-  rdfs:domain :EntityDescription ;
+  rdfs:domain :PublicationInstance ;
   rdfs:range :Pages .
 
 :begins a rdf:Property ;
@@ -295,5 +295,80 @@
   rdfs:comment "An externally sourced ORCID" ;
   rdfs:domain :Identity ;
   rdfs:range xsd:string .
+
+:PublicationContext a rdfs:Class ;
+  rdfs:comment "A class denoting the context of a publication, where the publication was published" .
+
+:PublicationInstance a rdfs:Class ;
+  rdfs:comment "A class denoting the exact instance where a publication occurred" .
+
+:Reference a rdfs:Class ;
+  rdfs:comment "A class denoting an existing, external publication" .
+
+:hasPublicationContext a rdf:Property ;
+  rdfs:comment "The relationship between a Reference and a Publication context" ;
+  rdfs:domain :Reference ;
+  rdfs:range :PublicationContext .
+
+:hasPublicationInstance a rdf:Property ;
+  rdfs:comment "The relationship between a Reference and the instance of the context in which it was published" ;
+  rdfs:domain :Reference ;
+  rdfs:range :PublicationInstance .
+
+:hasVolume a rdf:Property ;
+  rdfs:comment "The volume of a Publication instance (typically journal articles)" ;
+  rdfs:domain :PublicationInstance ;
+  rdfs:range xsd:string .
+
+:hasIssue a rdf:Property ;
+  rdfs:comment "The issue of a Publication instance (typically journal articles)" ;
+  rdfs:domain :PublicationInstance ;
+  rdfs:range xsd:string .
+
+:hasArticleNumber a rdf:Property ;
+  rdfs:comment "The number given to articles by certain journals" ;
+  rdfs:domain :PublicationInstance ;
+  rdfs:range xsd:string .
+
+:hasNpiLevel a rdf:Property ;
+  rdfs:comment "The NPI level of the journal/publisher of the Publication context" ;
+  rdfs:domain :PublicationContext ;
+  rdfs:range xsd:string .
+
+:isOpenAccess a rdf:Property ;
+  rdfs:comment "The open access status of a Publication context" ;
+  rdfs:domain :PublicationContext ;
+  rdfs:range xsd:boolean .
+
+:isPeerReviewed a rdf:Property ;
+  rdfs:comment "Whether a Publication context is peer-reviewed or not" ;
+  rdfs:domain :PublicationContext ;
+  rdfs:range xsd:boolean .
+
+:hasDoi a rdf:Property ;
+  rdfs:comment "The doi of a Reference" ;
+  rdfs:domain :Reference ;
+  rdfs:range xsd:string .
+
+:isAdminstrativeAgreement a rdf:Property ;
+  rdfs:comment "Indication of whether a file is an administrtative agreement or not" ;
+  rdfs:domain :File ;
+  rdfs:range xsd:boolean .
+
+:isPublisherAuthority a rdf:Property ;
+  rdfs:comment "Indication of whether a file's owner also has the authority to publish a file" ;
+  rdfs:domain :File ;
+  rdfs:range xsd:boolean .
+
+:hasEmbargoDate a rdf:Property ;
+  rdfs:comment "The date on which a publishing embargo on a file elapses" ;
+  rdfs:domain :File ;
+  rdfs:range xsd:date .
+
+:hasReference a rdf:Property ;
+  rdfs:comment "The relationship between an entity description and a reference" ;
+  rdfs:domain :EntityDescription ;
+  rdfs:range :Reference .
+
 
 
