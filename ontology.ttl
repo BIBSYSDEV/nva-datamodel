@@ -269,6 +269,11 @@
 :Pages a rdfs:Class ;
   rdfs:comment "The extent of a document" .
 
+:hasPages a rdf:Property ;
+  rdfs:comment "The relationship between a pages object and an EntityDescription" ;
+  rdfs:domain :EntityDescription ;
+  rdfs:range :Pages .
+
 :begins a rdf:Property ;
   rdfs:comment "The starting point of a range" ;
   rdfs:domain :Pages ;
