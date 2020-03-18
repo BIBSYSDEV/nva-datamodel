@@ -254,6 +254,12 @@
   rdfs:domain :EntityDescription ;
   rdfs:range xsd:string .
 
+:hasNPISubjectHeading a rdf:Property ;
+        rdfs:subPropertyOf dcterms:subject ;
+        rdfs:comment "A NPI subject heading identifier, see https://npi.nsd.no/dok/bakgrunn2003/Norskvitdisinnst.pdf" ;
+        rdfs:domain :EntityDescription ;
+        rdfs:range xsd:string .
+
 :hasDescription a rdf:Property ;
   rdfs:subPropertyOf dcterms:description ;
   rdfs:comment "A free-text description of the publication" ;
