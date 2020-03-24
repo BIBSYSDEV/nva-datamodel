@@ -125,7 +125,7 @@
 
 :hasName a rdf:Property ;
   rdfs:comment "The name of a thing" ;
-  rdfs:domain :File, :Identity ;
+  rdfs:domain :File, :Identity, :Project ;
   rdfs:range xsd:string .
 
 :hasIdentity a rdf:Property ;
@@ -278,4 +278,21 @@
   rdfs:domain :Identity ;
   rdfs:range xsd:string .
 
+:Project a rdfs:Class ;
+  rdfs:comment "A project" .
+
+:hasProject a rdf:Property ;
+  rdfs:comment "The relationship between an Publication and a project" ;
+  rdfs:domain :Publication ;
+  rdfs:range :Project .
+
+:hasGrantId a rdf:Property ;
+  rdfs:comment "The grand ID of a project" ;
+  rdfs:domain :Project ;
+  rdfs:range xsd:string .
+
+:hasFinancingBody a rdf:Property ;
+  rdfs:comment "The financing body of a project" ;
+  rdfs:domain :Project ;
+  rdfs:range xsd:string .
 
