@@ -255,10 +255,10 @@
   rdfs:range xsd:string .
 
 :hasNPISubjectHeading a rdf:Property ;
-        rdfs:subPropertyOf dcterms:subject ;
-        rdfs:comment "A NPI subject heading identifier, see https://npi.nsd.no/dok/bakgrunn2003/Norskvitdisinnst.pdf" ;
-        rdfs:domain :EntityDescription ;
-        rdfs:range xsd:string .
+  rdfs:subPropertyOf dcterms:subject ;
+  rdfs:comment "A NPI subject heading identifier, see https://npi.nsd.no/dok/bakgrunn2003/Norskvitdisinnst.pdf" ;
+  rdfs:domain :EntityDescription ;
+  rdfs:range xsd:string .
 
 :hasDescription a rdf:Property ;
   rdfs:subPropertyOf dcterms:description ;
@@ -279,20 +279,59 @@
   rdfs:range xsd:string .
 
 :Project a rdfs:Class ;
-  rdfs:comment "A project" .
+  rdfs:comment "A Project" .
 
 :hasProject a rdf:Property ;
-  rdfs:comment "The relationship between an Publication and a project" ;
+  rdfs:comment "The relationship between an Publication and a Project" ;
   rdfs:domain :Publication ;
   rdfs:range :Project .
 
-:hasGrantId a rdf:Property ;
-  rdfs:comment "The grand ID of a project" ;
+:Grant a rdfs:Class ;
+  rdfs:comment "A Grant from a financing body" .
+
+:hasGrant a rdf:Property ;
+  rdfs:comment "The Grant ID of a Project" ;
   rdfs:domain :Project ;
+  rdfs:range :Grant .
+
+:hasSource a rdf:Property ;
+  rdfs:comment "The source of funding for a Grant" ;
+  rdfs:domain :Grant ;
+  rdfs:range  xsd:string .
+
+:hasIdentifier a rdf:Property ;
+  rdfs:comment "The identifier foor a Grant" ;
+  rdfs:domain :Grant ;
+  rdfs:range  xsd:string .
+
+:Approval a rdfs:Class ;
+  rdfs:comment "The relation linking a Project with an Approval" ;
+  rdfs:domain :Project ;
+  rdfs:range :Approval .
+
+:hasApproval  a rdf:Property ;
+  rdfs:comment "The grant ID of a Project" ;
+  rdfs:domain :Project ;
+  rdfs:range :Approval .
+
+:hasApprovalDate a rdf:Property ;
+  rdfs:comment "The date of an Approval" ;
+  rdfs:domain :Approval ;
+  rdfs:range xsd:dateTime .
+
+:hasApprovedBy a rdf:Property ;
+  rdfs:comment "The body that approved the Approval" ;
+  rdfs:domain :Approval;
   rdfs:range xsd:string .
 
-:hasFinancingBody a rdf:Property ;
-  rdfs:comment "The financing body of a project" ;
-  rdfs:domain :Project ;
+:hasApprovalStatus a rdf:Property ;
+  rdfs:comment "The status of an Approval" ;
+  rdfs:domain :Approval ;
   rdfs:range xsd:string .
+
+:hasApplicationCode a rdf:Property ;
+  rdfs:comment "The application code for an Approval" ;
+  rdfs:domain :Approval ;
+  rdfs:range xsd:string .
+
 
