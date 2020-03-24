@@ -125,7 +125,7 @@
 
 :hasName a rdf:Property ;
   rdfs:comment "The name of a thing" ;
-  rdfs:domain :File, :Identity ;
+  rdfs:domain :File, :Identity, :PublicationContext;
   rdfs:range xsd:string .
 
 :hasIdentity a rdf:Property ;
@@ -278,4 +278,79 @@
   rdfs:domain :Identity ;
   rdfs:range xsd:string .
 
+:Reference a rdfs:Class ;
+  rdfs:comment "A proxy class to hold the reference data for a publication" .
 
+:hasReference a rdf:Property ;
+  rdfs:comment "The relationship between an Entity description and a Reference" ;
+  rdfs:domain :EntityDescription ;
+  rdfs:range :Reference .
+
+:hasDoi a rdf:Property ;
+  rdfs:comment "The relationship between a Reference and a Digital Object Identifier" ;
+  rdfs:domain :Reference ;
+  rdfs:range xsd:string .
+
+:PublicationContext a rdfs:Class ;
+  rdfs:comment "The class containing the reference for a publication context, where something was published" .
+
+:PublicationInstance a rdfs:Class ;
+  rdfs:comment "The class containing the publication instance specifics, such as page numbers" .
+
+:hasPublicationContext a rdf:Property ;
+  rdfs:comment "The relationship between a Reference and a Publication context" ;
+  rdfs:domain :Reference ;
+  rdfs:domain :PublicationContext .
+
+:hasPublicationContext a rdf:Property ;
+  rdfs:comment "The relationship between a Reference and a Publication context" ;
+  rdfs:domain :Reference ;
+  rdfs:domain :PublicationContext .
+
+:hasAcademicLevel a rdf:Property ;
+  rdfs:comment "The academic level according to NPI for a Publication context" ;
+  rdfs:domain :PublicationContext ;
+  rdfs:range xsd:string .
+
+:isOpenAccess a rdf:Property ;
+  rdfs:comment "The open access status of a Publication context" ;
+  rdfs:domain :PublicationContext ;
+  rdfs:range xsd:boolean .
+
+:isPeerReviewed a rdf:Property ;
+  rdfs:comment "An explicit declaration about the peer-review status of a publication" ;
+  rdfs:domain :PublicationInstance ;
+  rdfs:range xsd:boolean .
+
+:hasVolume a rdf:Property ;
+  rdfs:comment "The volume of a Publication instance" ;
+  rdfs:domain :PublicationInstance ;
+  rdfs:range xsd:string .
+
+:hasIssue a rdf:Property ;
+  rdfs:comment "The issue of a Publication instance" ;
+  rdfs:domain :PublicationInstance ;
+  rdfs:range xsd:string .
+
+:hasArticleNumber a rdf:Property ;
+  rdfs:comment "The article number of a Publication instance" ;
+  rdfs:domain :PublicationInstance ;
+  rdfs:range xsd:string .
+
+:hasPages a rdf:Property ;
+  rdfs:comment "The pages associated with a Publication instance" ;
+  rdfs:domain :PublicationInstance ;
+  rdfs:range :Pages .
+
+:Pages a rdfs:Class ;
+  rdfs:comment "A page number object" .
+
+:hasBeginning a rdf:Property ;
+  rdfs:comment "The beginning of a page series" ;
+  rdfs:domain :Pages ;
+  rdfs:range xsd:string .
+
+:hasEnd a rdf:Property ;
+  rdfs:comment "The end of a page series" ;
+  rdfs:domain :Pages ;
+  rdfs:range xsd:string .
