@@ -71,7 +71,7 @@
 :hasIdentifier a rdf:Property ;
   rdfs:comment "An identifier for a thing" ;
   rdfs:subPropertyOf dcterms:identifier ;
-  rdfs:domain :Publication, :File, :Organization, :License, :Identity ;
+  rdfs:domain :Publication, :File, :Organization, :License, :Identity, :Grant ;
   rdfs:range xsd:string .
 
 # Linking mechanisms
@@ -125,7 +125,7 @@
 
 :hasName a rdf:Property ;
   rdfs:comment "The name of a thing" ;
-  rdfs:domain :File, :Identity, :PublicationContext;
+  rdfs:domain :File, :Identity, :Project, :ResearchProject;
   rdfs:range xsd:string .
 
 :hasIdentity a rdf:Property ;
@@ -255,10 +255,10 @@
   rdfs:range xsd:string .
 
 :hasNPISubjectHeading a rdf:Property ;
-        rdfs:subPropertyOf dcterms:subject ;
-        rdfs:comment "A NPI subject heading identifier, see https://npi.nsd.no/dok/bakgrunn2003/Norskvitdisinnst.pdf" ;
-        rdfs:domain :EntityDescription ;
-        rdfs:range xsd:string .
+  rdfs:subPropertyOf dcterms:subject ;
+  rdfs:comment "A NPI subject heading identifier, see https://npi.nsd.no/dok/bakgrunn2003/Norskvitdisinnst.pdf" ;
+  rdfs:domain :EntityDescription ;
+  rdfs:range xsd:string .
 
 :hasDescription a rdf:Property ;
   rdfs:subPropertyOf dcterms:description ;
@@ -294,6 +294,59 @@
   rdfs:subPropertyOf dcterms:identifier ;
   rdfs:comment "An externally sourced ORCID" ;
   rdfs:domain :Identity ;
+  rdfs:range xsd:string .
+
+:Project a rdfs:Class ;
+  rdfs:comment "A Project of any kind (administrative, research, etc.)" .
+
+:ResearchProject a rdfs:Class ;
+  rdfs:comment "A research project" ;
+  rdfs:subClassOf :Project .
+
+:hasProject a rdf:Property ;
+  rdfs:comment "The relationship between an Publication and a Project" ;
+  rdfs:domain :Publication ;
+  rdfs:range :Project, :ResearchProject .
+
+:Grant a rdfs:Class ;
+  rdfs:comment "A Grant from a financing body" .
+
+:hasGrant a rdf:Property ;
+  rdfs:comment "The Grant ID of a Project" ;
+  rdfs:domain :ResearchProject ;
+  rdfs:range :Grant .
+
+:hasSource a rdf:Property ;
+  rdfs:comment "The source of funding for a Grant" ;
+  rdfs:domain :Grant ;
+  rdfs:range  xsd:string .
+
+:Approval a rdfs:Class ;
+  rdfs:comment "An Approval from an approvals body" .
+
+:hasApproval  a rdf:Property ;
+  rdfs:comment "The Approval of a Project" ;
+  rdfs:domain :ResearchProject ;
+  rdfs:range :Approval .
+
+:hasApprovalDate a rdf:Property ;
+  rdfs:comment "The date of an Approval" ;
+  rdfs:domain :Approval ;
+  rdfs:range xsd:dateTime .
+
+:hasApprovedBy a rdf:Property ;
+  rdfs:comment "The body that approved the Approval" ;
+  rdfs:domain :Approval;
+  rdfs:range xsd:string .
+
+:hasApprovalStatus a rdf:Property ;
+  rdfs:comment "The status of an Approval" ;
+  rdfs:domain :Approval ;
+  rdfs:range xsd:string .
+
+:hasApplicationCode a rdf:Property ;
+  rdfs:comment "The application code for an Approval" ;
+  rdfs:domain :Approval ;
   rdfs:range xsd:string .
 
 :PublicationContext a rdfs:Class ;
@@ -369,6 +422,3 @@
   rdfs:comment "The relationship between an entity description and a reference" ;
   rdfs:domain :EntityDescription ;
   rdfs:range :Reference .
-
-
-
