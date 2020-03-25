@@ -20,8 +20,9 @@
                 ] ;
   :hasEntityDescription [
                           :hasType :JournalArticle ;
-                          :hasTitle "A journey towards a valid data model"@en ;
-                          :hasTitle "En reise mot en valid datamodell"@nb ;
+                          :hasMainTitle "A journey towards a valid data model" ;
+                          :hasAlternativeTitle "En reise mot en valid datamodell"@nb ;
+                          :hasLanguage "en" ;
                           :hasDate [
                                      a :Date ;
                                      :hasYear "2019"^^xsd:gYear ;
@@ -30,10 +31,26 @@
                                 ] ;
                           :hasContributor [
                                    a :Contributor ;
-                                   :hasIdentifier "000001" ;
-                                   :hasIdentity <http://link.to.base/0000001> ;
+                                   :hasIdentity [
+                                                a :Identity ;
+                                                :hasArpId "000001" ;
+                                                :hasOrcid "aaaa-aaaa-aaaa-aaaa" ;
+                                                :hasName "Smith, Kim" ;
+                                                ] ;
+                                   :hasSequence "0"^^xsd:nonNegativeInteger ;
+                                   :hasAffiliation [
+                                                   # this lacks an identifier and is thereby not validated
+                                                       a :Organization ;
+                                                       :hasTitle "NTNU"
+                                                  ] ;
                                    :hasRole :CreatorRole
-                                ]
+                                ] ;
+                          :hasContributor [
+                                   a :Contributor ;
+                                   :hasIdentity <https://arp.no/123123> ;
+                                   :hasSequence "1"^^xsd:nonNegativeInteger ;
+                                   :hasAffiliation <Cristin_URI>
+                          ]
                         ] ;
   :hasPublisher [
                   a :Organization ;
@@ -58,3 +75,9 @@
                            :hasSize "22"^^xsd:long
                          ]
               ] .
+
+<https://arp.no/123123> a :Identity ;
+  :hasName "Smith, Sandy" .
+
+<Cristin_URI> a :Organization ;
+   :hasLabel "Noregs tekniske og naturvitskaplege universiteit"@nn .
