@@ -125,7 +125,7 @@
 
 :hasName a rdf:Property ;
   rdfs:comment "The name of a thing" ;
-  rdfs:domain :File, :Identity ;
+  rdfs:domain :File, :Identity, :PublicationContext;
   rdfs:range xsd:string .
 
 :hasIdentity a rdf:Property ;
@@ -342,7 +342,7 @@
 
 :isPeerReviewed a rdf:Property ;
   rdfs:comment "Whether a Publication context is peer-reviewed or not" ;
-  rdfs:domain :PublicationContext ;
+  rdfs:domain :PublicationInstance ;
   rdfs:range xsd:boolean .
 
 :hasDoi a rdf:Property ;
