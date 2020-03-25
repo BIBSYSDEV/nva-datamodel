@@ -422,6 +422,3 @@
   rdfs:comment "The relationship between an entity description and a reference" ;
   rdfs:domain :EntityDescription ;
   rdfs:range :Reference .
-
-
-
