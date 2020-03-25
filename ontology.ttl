@@ -322,7 +322,7 @@
   rdfs:range  xsd:string .
 
 :Approval a rdfs:Class ;
-  rdfs:comment "The relation linking a Project with an Approval" .
+  rdfs:comment "An Approval from an approvals body" .
 
 :hasApproval  a rdf:Property ;
   rdfs:comment "The Approval of a Project" ;
