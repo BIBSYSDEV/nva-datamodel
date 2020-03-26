@@ -33,6 +33,26 @@
   rdfs:subClassOf :PublicationType ;
   rdfs:comment "A publication type that is published in an academic Journal" .
 
+:Article a rdfs:Class ;
+  rdfs:subClassOf :JournalArticle ;
+  rdfs:comment "A traditional article published in a journal" .
+
+:ShortCommunication a rdfs:Class ;
+  rdfs:subClassOf :JournalArticle ;
+  rdfs:comment "A short communication published in a journal" .
+
+:Editorial a rdfs:Class ;
+  rdfs:subClassOf :JournalArticle ;
+  rdfs:comment "An Editorial published in a journal" .
+
+:Letter a rdfs:Class ;
+  rdfs:subClassOf :JournalArticle ;
+  rdfs:comment "A letter published in a journal" .
+
+:Review a rdfs:Class ;
+  rdfs:subClassOf :JournalArticle ;
+  rdfs:comment "A review published in a journal" .
+
 :License a rdfs:Class ;
   rdfs:comment "A license describing the legal rights associated with a Publication" .
 
@@ -189,7 +209,12 @@
 :hasType a rdf:Property ;
   rdfs:comment "A closed-category type associated with a Publication" ;
   rdfs:domain :EntityDescription ;
-  rdfs:range :PublicationType .
+  rdfs:range :PublicationType, :JournalArticle .
+
+:hasSubtype a rdf:Property ;
+  rdfs:comment "The subtype of a Publication" ;
+  rdfs:domain :Publication ;
+  rdfs:range :Article, :Editorial, :Letter, :Review, :ShortCommunication .
 
 :hasPublisher a rdf:Property ;
   rdfs:comment "The publisher of a Publication" ;
