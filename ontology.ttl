@@ -456,4 +456,4 @@
 :isCorrespondingAuthor a rdf:Property ;
   rdfs:comment "An indication that the author is a corresponding author for a publication" ;
   rdfs:domain :Contributor ;
-  rdfs:domain xsd:boolean .
+  rdfs:range xsd:boolean .
