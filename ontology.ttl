@@ -457,3 +457,8 @@
   rdfs:comment "An indication that the author is a corresponding author for a publication" ;
   rdfs:domain :Contributor ;
   rdfs:range xsd:boolean .
+
+:hasEmail a rdf:Property ;
+  rdfs:comment "The email of a contributor" ;
+  rdfs:domain :Contributor ;
+  rdfs:range xsd:string .
