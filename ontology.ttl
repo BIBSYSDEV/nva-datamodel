@@ -452,3 +452,8 @@
   rdfs:comment "The source from which metadata was extracted" ;
   rdfs:domain :EntityDescription ;
   rdfs:range xsd:anyURI .
+
+:isCorrespondingAuthor a rdf:Property ;
+  rdfs:comment "An indication that the author is a corresponding author for a publication" ;
+  rdfs:domain :Contributor ;
+  rdfs:domain xsd:boolean .
