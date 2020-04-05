@@ -462,3 +462,8 @@
   rdfs:comment "The email of a contributor" ;
   rdfs:domain :Contributor ;
   rdfs:range xsd:string .
+
+:hasTitle a rdf:Property ;
+  rdfs:comment "The name of something that traditionally has a title" ;
+  rdfs:domain :PublicationContext ;
+  rdfs:range xsd:string .
