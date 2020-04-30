@@ -426,7 +426,7 @@
 :hasDoi a rdf:Property ;
   rdfs:comment "The doi of a Reference" ;
   rdfs:domain :Reference ;
-  rdfs:range xsd:string .
+  rdfs:range xsd:anyURI .
 
 :isAdminstrativeAgreement a rdf:Property ;
   rdfs:comment "Indication of whether a file is an administrtative agreement or not" ;
