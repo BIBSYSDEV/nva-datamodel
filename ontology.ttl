@@ -102,12 +102,119 @@
   rdfs:comment "A File associated with a Publication" .
 
 # Roles
-:CreatorRole a rdfs:Class ;
-  rdfs:comment "The base class for all creator roles" ;
+
+:Advisor a rdfs:Class ;
+  rdfs:comment "A contribution in a supervisory capacity in relation to a resource" ;
   rdfs:subClassOf :Role .
 
-:ContributorRole a rdfs:Class ;
-  rdfs:comment "The base class for all contributor roles" ;
+:Creator a rdfs:Class ;
+  rdfs:comment "A contribution in that plays a major role in the creation of a resource" ;
+  rdfs:subClassOf :Role .
+
+:Editor a rdfs:Class ;
+  rdfs:comment "A contribution from someone who oversees details related to the publication format of a resource" ;
+  rdfs:subClassOf :Role .
+
+:Illustrator a rdfs:Class ;
+  rdfs:comment "A contribution of illustrations, images and/or figures for a resource" ;
+  rdfs:subClassOf :Role .
+
+:Other a rdfs:Class ;
+  rdfs:comment "A contribution of a kind not covered by the other roles" ;
+  rdfs:subClassOf :Role .
+
+# This is not a contribution, it is something else
+:ContactPerson a rdfs:Class ;
+  rdfs:comment "A contribution of being the person who may be contacted related to a resource" ;
+  rdfs:subClassOf :Role .
+
+# This does not fit entirely with our conceptualisation of Contributor since it may also be an institution in Datacite
+:DataCollector a rdfs:Class ;
+  rdfs:comment "Person/institution responsible for finding, gathering/collecting data under the guidelines of the author(s) or Principal Investigator" ;
+  rdfs:subClassOf :Role .
+
+:DataCurator a rdfs:Class ;
+  rdfs:comment "A contribution in reviewing, enhancing, cleaning, or standardizing metadata and associated data submitted for storage, use, and maintenance within a data centre or repository" ;
+  rdfs:subClassOf :Role .
+
+# Again only partial overlap
+:DataManager a rdfs:Class ;
+  rdfs:comment "Person (or organisation with a staff of data managers, such as a data centre) responsible for maintaining the finished resource" ;
+  rdfs:subClassOf :Role .
+
+# This is in essence should be covered by the NVA owner institution and repeats this value unnecessarily
+:Distributor a rdfs:Class ;
+  rdfs:comment "Institution tasked with responsibility to generate/disseminate copies of the resource in either electronic or print form" ;
+  rdfs:subClassOf :Role .
+
+# This maps to grant information on the publication and repeats the information there
+:Funder a rdfs:Class ;
+  rdfs:comment "A contribution of funding from an organization funding the production of the resource" ;
+  rdfs:subClassOf :Role .
+
+# This is always Unit, is it not, covered by our contract with the customer institution.
+:HostingInstitution a rdfs:Class ;
+  rdfs:comment "Typically, the organisation allowing the resource to be available on the internet through the provision of its hardware/software/operating support" ;
+  rdfs:subClassOf :Role .
+
+# Not sure how this maps to anything at the moment
+:Producer a rdfs:Class ;
+  rdfs:comment "Typically a person or organisation responsible for the artistry and form of a media product." ;
+  rdfs:subClassOf :Role .
+
+:ProjectLeader a rdfs:Class ;
+  rdfs:comment "A contribution from a designated head of project team or subproject team instrumental in the work necessary to development of a resource." ;
+  rdfs:subClassOf :Role .
+
+:ProjectManager a rdfs:Class ;
+  rdfs:comment "A contribution from a designated manager of a project with which a resource is associated. Project may consist of one or many project teams and sub-teams" ;
+  rdfs:subClassOf :Role .
+
+:ProjectMember a rdfs:Class ;
+  rdfs:comment "A contribution from a contributor on membership list of a designated project/project team involved in the creation of a resource" ;
+  rdfs:subClassOf :Role .
+
+# Not sure about this; Registration Agency is the problematic concept
+:RegistrationAgency a rdfs:Class ;
+  rdfs:comment "Institution/organisation officially appointed by a Registration Authority to handle specific tasks within a defined area of responsibility" ;
+  rdfs:subClassOf :Role .
+
+#Here, is the crux of the previous matter. What does this mean for us and how does it map to NVA? REK and so on? This is covered elsewhere.
+:RegistrationAuthority a rdfs:Class ;
+  rdfs:comment "A standards-setting body from which Registration Agencies obtain official recognition and guidance" ;
+  rdfs:subClassOf :Role .
+
+# Like "contributor"
+:RelatedPerson a rdfs:Class ;
+  rdfs:comment "A contribution made without a specifically defined role in the development of the resource, but who is someone the author wishes to recognize" ;
+  rdfs:subClassOf :Role .
+
+:Researcher a rdfs:Class ;
+  rdfs:comment "A contribution in analyzing data or the results of an experiment or formal study. May indicate an intern or assistant to one of the authors who helped with research but who was not so “key” as to be listed as an author" ;
+  rdfs:subClassOf :Role .
+
+# Again, an organization, not an individual. In my view, this is more a case of something to which a contributor belongs, rather than an actual contributor
+:ResearchGroup a rdfs:Class ;
+  rdfs:comment "Typically refers to a group of individuals with a lab, department, or division; the group has a particular, defined focus of activity" ;
+  rdfs:subClassOf :Role .
+
+# Our understanding of this has been implicitly that this is the Creators of a resource (and their institution?). Our legal team should provide guidance here.
+:RightsHolder a rdfs:Class ;
+  rdfs:comment "Person or institution owning or managing property rights, including intellectual property rights over the resource." ;
+  rdfs:subClassOf :Role .
+
+# Not sure that this doesn't relate to the parent institutions for the researchers, but it may be an individual or an organization
+:Sponsor a rdfs:Class ;
+  rdfs:comment "Person or organisation that issued a contract or under the auspices of which a work has been written, printed, published, developed, etc" ;
+  rdfs:subClassOf :Role .
+
+:Supervisor a rdfs:Class ;
+  rdfs:comment "A contribution by a designated administrator over one or more groups/teams working to produce a resource or over one or more steps of a development process." ;
+  rdfs:subClassOf :Role .
+
+# The implicit constraint here is that the resource is a work package, do we have this resource type, or do we mean something else by this?
+:WorkPackageLeader a rdfs:Class ;
+  rdfs:comment "A Work Package is a recognized data product, not all of which is included in publication. The package, instead, may include notes, discarded documents, etc. The Work Package Leader is responsible for ensuring the comprehensive contents, versioning, and availability of the Work Package during the development of the resource" ;
   rdfs:subClassOf :Role .
 
 # Relations
