@@ -581,8 +581,8 @@
   rdfs:range xsd:boolean .
 
 :peerReviewed a rdf:Property ;
-  rdfs:comment "Whether a Publication context is peer-reviewed or not" ;
-  rdfs:domain :PublicationInstance ;
+  rdfs:comment "Whether a Publication context or instance is peer-reviewed or not" ;
+  rdfs:domain :PublicationInstance, :PublicationContext ;
   rdfs:range xsd:boolean .
 
 :doi a rdf:Property ;
