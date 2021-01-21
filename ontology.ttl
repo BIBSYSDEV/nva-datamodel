@@ -359,10 +359,13 @@
   rdfs:domain :Publication ;
   rdfs:range :Article, :Editorial, :Letter, :Review, :ShortCommunication .
 
+# We allow use of this term in two different contexts, though the existence of the entity Organization in Publication
+# context is simply not possible to ascertain in most cases and is represented by a string, which means we should split
+# the term into two
 :publisher a rdf:Property ;
   rdfs:comment "The publisher of a Publication" ;
-  rdfs:domain :Publication ;
-  rdfs:range :Organization, rdf:Resource .
+  rdfs:domain :Publication, :PublicationContext ;
+  rdfs:range :Organization, xsd:string .
 
 :license a rdf:Property ;
   rdfs:comment "The license associated with a Publication" ;
@@ -554,7 +557,22 @@
 :npiLevel a rdf:Property ;
   rdfs:comment "The NPI level of the journal/publisher of the Publication context" ;
   rdfs:domain :PublicationContext ;
-  rdfs:range xsd:string .
+  rdfs:range :Level .
+
+:Level a rdfs:Class ;
+  rdfs:comment "A representation of the academic merit of a publishing channel in which a resource is published" .
+
+:Level_0 a rdfs:Class ;
+  rdfs:subClassOf :Level ;
+  rdfs:comment "The level indicating that the publishing channel is considered to be of no academic importance" .
+
+:Level_1 a rdfs:Class ;
+  rdfs:subClassOf :Level ;
+  rdfs:comment "The level indicating that the publishing channel is considered to be of some academic importance" .
+
+:Level_2 a rdfs:Class ;
+  rdfs:subClassOf :Level ;
+  rdfs:comment "The level indicating that the publishing channel is considered to be of high academic importance" .
 
 :openAccess a rdf:Property ;
   rdfs:comment "The open access status of a Publication context" ;
@@ -618,3 +636,14 @@
   rdfs:comment "The name of something that traditionally has a title" ;
   rdfs:domain :PublicationContext ;
   rdfs:range xsd:string .
+
+# series should be its own Class, and seriesTitle and number should have this as their domain
+:seriesTitle a rdf:Property ;
+  rdfs:comment "The title of a book series of which a resource is part" ;
+  rdfs:domain :PublicationContext ;
+  rdfs:range xsd:string .
+
+:seriesNumber a rdf:Property ;
+  rdfs:comment "The number in the series that a resource has in its published form in a book series" ;
+  rdfs:domain .
+
