@@ -284,6 +284,22 @@
   rdfs:domain :Contributor ;
   rdfs:range :Identity .
 
+# This should probably be identityType
+:nameType a rdf:Property ;
+  rdfs:comment "The kind of a name" ;
+  rdfs:domain :Identity ;
+  rdfs:range :NameType .
+
+# This should probably be IdentityType
+:NameType a rdfs:Class ;
+  rdfs:comment "A kind of name" .
+
+:Personal a rdfs:Class ;
+  rdfs:comment "A name for a person" ;
+
+:Corporate a rdfs:Class ;
+  rdfs:comment "A name for a group of individuals organized as a body acting together" .
+
 :Identity a rdfs:Class ;
   rdfs:comment "The identity of the contributor" .
 
