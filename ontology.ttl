@@ -12,7 +12,7 @@
 # Publication-related concepts
 
 :EntityDescription a rdfs:Class ;
-  rdfs:comment "A description of the Publication" .
+  rdfs:comment "A description of a Publication" .
 
 :Contributor a rdfs:Class ;
   rdfs:comment "A Contributor to a Publication" .
@@ -199,17 +199,17 @@
 :year a rdf:Property ;
   rdfs:comment "The year of a Date" ;
   rdfs:domain :Date ;
-  rdfs:range xsd:gYear .
+  rdfs:range xsd:string .
 
 :month a rdf:Property ;
   rdfs:comment "The month of a Date" ;
   rdfs:domain :Date ;
-  rdfs:range xsd:gMonth .
+  rdfs:range xsd:string .
 
 :day a rdf:Property ;
   rdfs:comment "The day of a date" ;
   rdfs:domain :Date ;
-  rdfs:range xsd:gDay .
+  rdfs:range xsd:string .
 
 :file a rdf:Property ;
   rdfs:comment "A file belonging to a FileSet" ;
@@ -280,6 +280,7 @@
   rdfs:domain :EntityDescription ;
   rdfs:range rdf:langString .
 
+# Should language be a property of the publication?
 :language a rdf:Property ;
   rdfs:subPropertyOf dcterms:language ;
   rdfs:comment "The language which is required to usefully interpret the Publication" ;
