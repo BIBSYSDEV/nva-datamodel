@@ -226,7 +226,7 @@
 :publisher a rdf:Property ;
   rdfs:comment "The publisher of a Publication" ;
   rdfs:domain :Publication ;
-  rdfs:range :Publisher, rdf:Resource .
+  rdfs:range :Organization, rdf:Resource .
 
 :license a rdf:Property ;
   rdfs:comment "The license associated with a Publication" ;
