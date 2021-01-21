@@ -537,11 +537,146 @@
   rdfs:domain :Approval ;
   rdfs:range xsd:string .
 
+# Publication contexts
+
 :PublicationContext a rdfs:Class ;
   rdfs:comment "A class denoting the context of a publication, where the publication was published" .
 
+:Book a rdfs:Class ;
+  rdfs:subClassOf :PublicationContext ;
+  rdfs:comment "An object in the real world, or an electronic file that forms a written document".
+
+# This is probably just a content type annotation, rather than a type proper
+:Cartograph a rdfs:Class ;
+  rdfs:subClassOf :PublicationContext ;
+  rdfs:comment "An object in the real world, or an electronic file that forms a visual representation of geographic information" .
+
+:Chapter a rdfs:Class ;
+  rdfs:subClassOf :PublicationContext ;
+  rdfs:comment "A subpart of another publication that can be identified as independent of the containing whole in some way" .
+
+# This is more content type annotation than a proper type as it shares all characteristics with Book except ISBN in the case of Master and Bachelor
+:Degree a rdfs:Class ;
+  rdfs:subClassOf :PublicationContext ;
+  rdfs:comment
+
+# Should probably be renamed to SerialPublication
+:Journal a rdfs:Class ;
+  rdfs:subClassOf :PublicationContext ;
+  rdfs:comment "A serial publication in physical or electronic form" .
+
+# Again, content rather than carrier
+:MusicalContent a rdfs:Class ;
+  rdfs:subClassOf :PublicationContext ;
+  rdfs:comment "An object in the real world, or an electronic file that forms a representation of musical information" .
+
+# Content not carrier
+:Report a rdfs:Class ;
+  rdfs:subClassOf :PublicationContext ;
+  rdfs:comment "An object in the real world, or an electronic file that forms a written representation of descriptive research" .
+
+# PublicationInstances
+
 :PublicationInstance a rdfs:Class ;
   rdfs:comment "A class denoting the exact instance where a publication occurred" .
+
+:BookAbstracts a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A book that contains abstracts of other research" .
+
+:BookAnthology a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A collection of other works" .
+
+:BookMonograph a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A book on a single topic" .
+
+:CartographicMap a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A representation of geographical information in visual form" .
+
+:ChapterArticle a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A monograph that is a sub-part of larger whole" .
+
+:DegreeBachelor a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A thesis presented for a Bachelor degree" .
+
+:DegreeMaster a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A thesis presented for a Master degree" .
+
+:DegreePhd a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A thesis presented for a Doctoral degree" .
+
+# I can't define this
+:FeatureArticle a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "An article in a journal that…" .
+
+:JournalArticle a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "An article in a journal that covers original research on a single topic" .
+
+# Content not type
+:JournalCorrigendum a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A journal article that is acorrection to a journal article" .
+
+# Content, not type
+:JournalInterview a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A journal article that is an interview with a person" .
+
+# Not sure what this actually is
+:JournalLeader a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A journal article written by the editor of the journal" .
+
+:JournalLetter a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A letter to the editor of a journal that has been published in the journal" .
+
+# Content not form
+:JournalReview a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A review of something that is published in a journal" .
+
+:JournalShortCommunication a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A short article of preliminary findings from original research that is published in a journal" .
+
+# Content not form
+:MusicNotation a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "Musical transcription in written form" .
+
+:OtherStudentWork a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A document submitted as part of a course of study" .
+
+# Here, we have an issue
+:ReportBasic a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A report that cannot be defined by audience" .
+
+# Audience, this is policymakers
+:ReportPolicy a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A report on policy" .
+
+# This would be a "Report", I suspect
+:ReportResearch a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A research report" .
+
+# Not sure about the content here
+:ReportWorkingPaper a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "I don't know what this denotes" .
 
 :Reference a rdfs:Class ;
   rdfs:comment "A class denoting an existing, external publication" .
