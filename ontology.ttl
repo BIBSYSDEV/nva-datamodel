@@ -4,6 +4,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 :Publication a rdfs:Class ;
   rdfs:comment "Base concept for all items in NVA" .
@@ -11,10 +12,10 @@
 # Publication-related concepts
 
 :EntityDescription a rdfs:Class ;
-  rdfs:comment "A description of Publication" .
+  rdfs:comment "A description of a Publication" .
 
 :Contributor a rdfs:Class ;
-  rdfs:comment "A Contributor of a Publication" .
+  rdfs:comment "A Contributor to a Publication" .
 
 :Organization a rdfs:Class ;
   rdfs:comment "An Organization" .
@@ -61,14 +62,38 @@
 
 # Publication status concepts
 
-:Status a rdfs:Class ;
-  rdfs:comment "A status of a Publication in the NVA workflow" .
+:PublicationStatus a rdfs:Class ;
+  rdfs:comment "A status object" .
 
-:PublishedStatus a rdfs:Class ;
-  rdfs:subClassOf :Status ;
-  rdfs:comment "The status of a published Publication" .
+:Draft a rdfs:Class ;
+  rdfs:subClassOf :PublicationStatus ;
+  rdfs:comment "A state of incompleteness" .
 
-# Files
+:Published a rdfs:Class ;
+  rdfs:subClassOf :PublicationStatus ;
+  rdfs:comment "A state of having been approved for publication" .
+
+:New a rdfs:Class ;
+  rdfs:subClassOf :PublicationStatus ;
+  rdfs:comment "A state of having been imported, but unedited" .
+
+:DraftForDeletion a rdfs:Class ;
+  rdfs:subClassOf :PublicationStatus ;
+  rdfs:comment "A state of having been marked for physical deletion" .
+
+:Requested a rdfs:Class ;
+  rdfs:subClassOf :DoiRequestStatus ;
+  rdfs:comment "A state of having requested a DOI" .
+
+:Approved a rdfs:Class ;
+  rdfs:subClassOf :DoiRequestStatus ;
+  rdfs:comment "A state of having approved a request for a DOI" .
+
+:Rejected a rdfs:Class ;
+  rdfs:subClassOf :DoiRequestStatus ;
+  rdfs:comment "A state of having rejected a request for a DOI" .
+
+# File-related
 
 :FileSet a rdfs:Class ;
   rdfs:comment "The set of Files associated with a Publication" .
@@ -77,18 +102,125 @@
   rdfs:comment "A File associated with a Publication" .
 
 # Roles
-:CreatorRole a rdfs:Class ;
-  rdfs:comment "The base class for all creator roles" ;
+
+:Advisor a rdfs:Class ;
+  rdfs:comment "A contribution in a supervisory capacity in relation to a resource" ;
   rdfs:subClassOf :Role .
 
-:ContributorRole a rdfs:Class ;
-  rdfs:comment "The base class for all contributor roles" ;
+:Creator a rdfs:Class ;
+  rdfs:comment "A contribution in that plays a major role in the creation of a resource" ;
+  rdfs:subClassOf :Role .
+
+:Editor a rdfs:Class ;
+  rdfs:comment "A contribution from someone who oversees details related to the publication format of a resource" ;
+  rdfs:subClassOf :Role .
+
+:Illustrator a rdfs:Class ;
+  rdfs:comment "A contribution of illustrations, images and/or figures for a resource" ;
+  rdfs:subClassOf :Role .
+
+:Other a rdfs:Class ;
+  rdfs:comment "A contribution of a kind not covered by the other roles" ;
+  rdfs:subClassOf :Role .
+
+# This is not a contribution, it is something else
+:ContactPerson a rdfs:Class ;
+  rdfs:comment "A contribution of being the person who may be contacted related to a resource" ;
+  rdfs:subClassOf :Role .
+
+# This does not fit entirely with our conceptualisation of Contributor since it may also be an institution in Datacite
+:DataCollector a rdfs:Class ;
+  rdfs:comment "Person/institution responsible for finding, gathering/collecting data under the guidelines of the author(s) or Principal Investigator" ;
+  rdfs:subClassOf :Role .
+
+:DataCurator a rdfs:Class ;
+  rdfs:comment "A contribution in reviewing, enhancing, cleaning, or standardizing metadata and associated data submitted for storage, use, and maintenance within a data centre or repository" ;
+  rdfs:subClassOf :Role .
+
+# Again only partial overlap
+:DataManager a rdfs:Class ;
+  rdfs:comment "Person (or organisation with a staff of data managers, such as a data centre) responsible for maintaining the finished resource" ;
+  rdfs:subClassOf :Role .
+
+# This is in essence should be covered by the NVA owner institution and repeats this value unnecessarily
+:Distributor a rdfs:Class ;
+  rdfs:comment "Institution tasked with responsibility to generate/disseminate copies of the resource in either electronic or print form" ;
+  rdfs:subClassOf :Role .
+
+# This maps to grant information on the publication and repeats the information there
+:Funder a rdfs:Class ;
+  rdfs:comment "A contribution of funding from an organization funding the production of the resource" ;
+  rdfs:subClassOf :Role .
+
+# This is always Unit, is it not, covered by our contract with the customer institution.
+:HostingInstitution a rdfs:Class ;
+  rdfs:comment "Typically, the organisation allowing the resource to be available on the internet through the provision of its hardware/software/operating support" ;
+  rdfs:subClassOf :Role .
+
+# Not sure how this maps to anything at the moment
+:Producer a rdfs:Class ;
+  rdfs:comment "Typically a person or organisation responsible for the artistry and form of a media product." ;
+  rdfs:subClassOf :Role .
+
+:ProjectLeader a rdfs:Class ;
+  rdfs:comment "A contribution from a designated head of project team or subproject team instrumental in the work necessary to development of a resource." ;
+  rdfs:subClassOf :Role .
+
+:ProjectManager a rdfs:Class ;
+  rdfs:comment "A contribution from a designated manager of a project with which a resource is associated. Project may consist of one or many project teams and sub-teams" ;
+  rdfs:subClassOf :Role .
+
+:ProjectMember a rdfs:Class ;
+  rdfs:comment "A contribution from a contributor on membership list of a designated project/project team involved in the creation of a resource" ;
+  rdfs:subClassOf :Role .
+
+# Not sure about this; Registration Agency is the problematic concept
+:RegistrationAgency a rdfs:Class ;
+  rdfs:comment "Institution/organisation officially appointed by a Registration Authority to handle specific tasks within a defined area of responsibility" ;
+  rdfs:subClassOf :Role .
+
+#Here, is the crux of the previous matter. What does this mean for us and how does it map to NVA? REK and so on? This is covered elsewhere.
+:RegistrationAuthority a rdfs:Class ;
+  rdfs:comment "A standards-setting body from which Registration Agencies obtain official recognition and guidance" ;
+  rdfs:subClassOf :Role .
+
+# Like "contributor"
+:RelatedPerson a rdfs:Class ;
+  rdfs:comment "A contribution made without a specifically defined role in the development of the resource, but who is someone the author wishes to recognize" ;
+  rdfs:subClassOf :Role .
+
+:Researcher a rdfs:Class ;
+  rdfs:comment "A contribution in analyzing data or the results of an experiment or formal study. May indicate an intern or assistant to one of the authors who helped with research but who was not so “key” as to be listed as an author" ;
+  rdfs:subClassOf :Role .
+
+# Again, an organization, not an individual. In my view, this is more a case of something to which a contributor belongs, rather than an actual contributor
+:ResearchGroup a rdfs:Class ;
+  rdfs:comment "Typically refers to a group of individuals with a lab, department, or division; the group has a particular, defined focus of activity" ;
+  rdfs:subClassOf :Role .
+
+# Our understanding of this has been implicitly that this is the Creators of a resource (and their institution?). Our legal team should provide guidance here.
+:RightsHolder a rdfs:Class ;
+  rdfs:comment "Person or institution owning or managing property rights, including intellectual property rights over the resource." ;
+  rdfs:subClassOf :Role .
+
+# Not sure that this doesn't relate to the parent institutions for the researchers, but it may be an individual or an organization
+:Sponsor a rdfs:Class ;
+  rdfs:comment "Person or organisation that issued a contract or under the auspices of which a work has been written, printed, published, developed, etc" ;
+  rdfs:subClassOf :Role .
+
+:Supervisor a rdfs:Class ;
+  rdfs:comment "A contribution by a designated administrator over one or more groups/teams working to produce a resource or over one or more steps of a development process." ;
+  rdfs:subClassOf :Role .
+
+# The implicit constraint here is that the resource is a work package, do we have this resource type, or do we mean something else by this?
+:WorkPackageLeader a rdfs:Class ;
+  rdfs:comment "A Work Package is a recognized data product, not all of which is included in publication. The package, instead, may include notes, discarded documents, etc. The Work Package Leader is responsible for ensuring the comprehensive contents, versioning, and availability of the Work Package during the development of the resource" ;
   rdfs:subClassOf :Role .
 
 # Relations
 # Basic relations
 
-:hasIdentifier a rdf:Property ;
+:identifier a rdf:Property ;
   rdfs:comment "An identifier for a thing" ;
   rdfs:subPropertyOf dcterms:identifier ;
   rdfs:domain :Publication, :File, :Organization, :License, :Identity, :Grant ;
@@ -96,23 +228,22 @@
 
 # Linking mechanisms
 
-:hasEntityDescription a rdf:Property ;
+:entityDescription a rdf:Property ;
   rdfs:comment "The relationship between a Publication and its description" ;
   rdfs:domain :Publication ;
   rdfs:range :EntityDescription .
 
-
 # Dates
 
-:created a rdf:Property ;
+:createdDate a rdf:Property ;
   rdfs:comment "The date and time at which a Publication (the NVA concept, not the document itself) was created" ;
-  rdfs:domain :Publication ;
+  rdfs:domain :Publication, :DoiRequest ;
   rdfs:range xsd:dateTime ;
   rdfs:subPropertyOf dcterms:created .
 
-:modified a rdf:Property ;
+:modifiedDate a rdf:Property ;
   rdfs:comment "The date and time at which a Publication (the NVA concept, not the document itself) was modified" ;
-  rdfs:domain :Publication ;
+  rdfs:domain :Publication, :DoiRequest ;
   rdfs:range xsd:dateTime ;
   rdfs:subPropertyOf dcterms:modified .
 
@@ -133,189 +264,221 @@
   rdfs:domain :Publication ;
   rdfs:range xsd:string .
 
-:hasContributor a rdf:Property ;
+:contributor a rdf:Property ;
   rdfs:comment "The Contributor to a Publication in NVA" ;
   rdfs:domain :EntityDescription ;
   rdfs:range :Contributor .
 
-:hasLabel a rdf:Property ;
+:label a rdf:Property ;
   rdfs:comment "The language-tagged title object related to a Entity Description" ;
   rdfs:domain :License, :Organization ;
   rdfs:range rdf:langString .
 
-:hasName a rdf:Property ;
+:name a rdf:Property ;
   rdfs:comment "The name of a thing" ;
   rdfs:domain :File, :Identity, :Project, :ResearchProject;
   rdfs:range xsd:string .
 
-:hasIdentity a rdf:Property ;
+:identity a rdf:Property ;
   rdfs:comment "The identity of a contributor" ;
   rdfs:domain :Contributor ;
   rdfs:range :Identity .
 
+# This should probably be identityType
+:nameType a rdf:Property ;
+  rdfs:comment "The kind of a name" ;
+  rdfs:domain :Identity ;
+  rdfs:range :NameType .
+
+# This should probably be IdentityType
+:NameType a rdfs:Class ;
+  rdfs:comment "A kind of name" .
+
+:Personal a rdfs:Class ;
+  rdfs:comment "A name for a person" .
+
+:Corporate a rdfs:Class ;
+  rdfs:comment "A name for a group of individuals organized as a body acting together" .
+
 :Identity a rdfs:Class ;
   rdfs:comment "The identity of the contributor" .
 
-:hasRole a rdf:Property ;
+:role a rdf:Property ;
   rdfs:comment "The Role of the Contributor" ;
   rdfs:domain :Contributor ;
   rdfs:range :Role .
 
-:hasHandle a rdf:Property ;
+:handle a rdf:Property ;
   rdfs:comment "The Handle (HNDL) of a Publication" ;
   rdfs:domain :Publication ;
   rdfs:range xsd:anyURI .
 
-:hasLink a rdf:Property ;
-  rdfs:comment "A link to an external resource" ;
+# This usage is incorrect, it should only be used for licence links, not :publications
+:link a rdf:Property ;
+  rdfs:comment "A link to an external resource, this is unused and is deprecated" ;
   rdfs:domain :License, :Publication ;
   rdfs:range xsd:anyURI .
 
-:hasYear a rdf:Property ;
+:year a rdf:Property ;
   rdfs:comment "The year of a Date" ;
   rdfs:domain :Date ;
-  rdfs:range xsd:gYear .
+  rdfs:range xsd:string .
 
-:hasMonth a rdf:Property ;
+:month a rdf:Property ;
   rdfs:comment "The month of a Date" ;
   rdfs:domain :Date ;
-  rdfs:range xsd:gMonth .
+  rdfs:range xsd:string .
 
-:hasDay a rdf:Property ;
+:day a rdf:Property ;
   rdfs:comment "The day of a date" ;
   rdfs:domain :Date ;
-  rdfs:range xsd:gDay .
+  rdfs:range xsd:string .
 
-:hasFile a rdf:Property ;
+:file a rdf:Property ;
   rdfs:comment "A file belonging to a FileSet" ;
   rdfs:domain :FileSet ;
   rdfs:range :File .
 
-:hasMimeType a rdf:Property ;
+:mimeType a rdf:Property ;
   rdfs:comment "The mime-type string associated with a File" ;
   rdfs:domain :File ;
   rdfs:range xsd:string .
 
-:hasSize a rdf:Property ;
+:size a rdf:Property ;
   rdfs:comment "The file size of a File" ;
   rdfs:domain :File ;
   rdfs:range xsd:long .
 
-:hasDate a rdf:Property ;
+:date a rdf:Property ;
   rdfs:comment "A date associated with a Publication" ;
   rdfs:domain :EntityDescription ;
   rdfs:range :Date .
 
-:hasType a rdf:Property ;
-  rdfs:comment "A closed-category type associated with a Publication" ;
-  rdfs:domain :EntityDescription ;
-  rdfs:range :PublicationType, :JournalArticle .
-
-:hasSubtype a rdf:Property ;
+:subtype a rdf:Property ;
   rdfs:comment "The subtype of a Publication" ;
   rdfs:domain :Publication ;
   rdfs:range :Article, :Editorial, :Letter, :Review, :ShortCommunication .
 
-:hasPublisher a rdf:Property ;
+# We allow use of this term in two different contexts, though the existence of the entity Organization in Publication
+# context is simply not possible to ascertain in most cases and is represented by a string, which means we should split
+# the term into two
+:publisher a rdf:Property ;
   rdfs:comment "The publisher of a Publication" ;
-  rdfs:domain :Publication ;
-  rdfs:range :Publisher .
+  rdfs:domain :Publication, :PublicationContext ;
+  rdfs:range :Organization, xsd:string .
 
-:hasLicense a rdf:Property ;
+:license a rdf:Property ;
   rdfs:comment "The license associated with a Publication" ;
   rdfs:domain :File ;
   rdfs:range :License .
 
-:hasFileSet a rdf:Property ;
+:fileSet a rdf:Property ;
   rdfs:comment "The FileSet related to a Publication" ;
   rdfs:domain :Publication ;
   rdfs:range :FileSet .
 
-
 # Status
 
-:hasStatus a rdf:Property ;
-  rdfs:comment "The status of a document in NVA" ;
-  rdfs:domain :Publication ;
-  rdfs:range :Status .
+:status a rdf:Property ;
+  rdfs:comment "The status of something" ;
+  rdfs:domain :Publication, :DoiRequest ;
+  rdfs:range :PublicationStatus, :DoiRequestStatus .
 
-:hasSequence a rdf:Property ;
+:sequence a rdf:Property ;
   rdfs:comment "A place in a sequence" ;
   rdfs:domain :Contributor ;
   rdfs:range xsd:nonNegativeInteger .
 
-:hasAffiliation a rdf:Property ;
+:affiliation a rdf:Property ;
   rdfs:comment "The relationship between a Contributor and an Organization" ;
   rdfs:domain :Contributor ;
   rdfs:range :Organization .
 
-:hasMainTitle a rdf:Property ;
+:mainTitle a rdf:Property ;
   rdfs:subPropertyOf dcterms:title ;
   rdfs:comment "The given title of a Publication" ;
   rdfs:domain :EntityDescription ;
   rdfs:range xsd:string .
 
-:hasAlternativeTitle a rdf:Property ;
+:alternativeTitle a rdf:Property ;
   rdfs:subPropertyOf dcterms:title ;
   rdfs:comment "An alternative title associated with a Publication, including translations" ;
   rdfs:domain :EntityDescription ;
   rdfs:range rdf:langString .
 
-:hasLanguage a rdf:Property ;
+# Should language be a property of the publication?
+:language a rdf:Property ;
   rdfs:subPropertyOf dcterms:language ;
   rdfs:comment "The language which is required to usefully interpret the Publication" ;
   rdfs:domain :EntityDescription ;
   rdfs:range xsd:anyURI .
 
-:hasAbstract a rdf:Property ;
+:abstract a rdf:Property ;
   rdfs:subPropertyOf dcterms:description ;
   rdfs:comment "The original language abstract for the publication" ;
   rdfs:domain :EntityDescription ;
   rdfs:range xsd:string .
 
-:hasTag a rdf:Property ;
+:tag a rdf:Property ;
   rdfs:subPropertyOf dcterms:subject ;
   rdfs:comment "A natural language string describing the content" ;
   rdfs:domain :EntityDescription ;
   rdfs:range xsd:string .
 
-:hasNPISubjectHeading a rdf:Property ;
+:npiSubjectHeading a rdf:Property ;
   rdfs:subPropertyOf dcterms:subject ;
   rdfs:comment "A NPI subject heading identifier, see https://npi.nsd.no/dok/bakgrunn2003/Norskvitdisinnst.pdf" ;
   rdfs:domain :EntityDescription ;
   rdfs:range xsd:string .
 
-:hasDescription a rdf:Property ;
+:description a rdf:Property ;
   rdfs:subPropertyOf dcterms:description ;
   rdfs:comment "A free-text description of the publication" ;
   rdfs:domain :EntityDescription ;
   rdfs:range xsd:string .
 
 :Pages a rdfs:Class ;
-  rdfs:comment "The extent of a document" .
+  rdfs:comment "A published extent denotation of a document, as opposed to the extent of a resource" .
 
-:hasPages a rdf:Property ;
+:Range a rdfs:Class ;
+  rdfs:subClassOf :Pages ;
+  rdfs:comment "An extent of a document that has a sub-part relation to another document, where the beginning and end aid location of the document with the structure of its parent" .
+
+# This should be called "extent" as we will likely wish to have durations and size for e.g. videos and data files respectively.
+# We also allow the use of pages within a xsd:string value, this should not be separate.
+:pages a rdf:Property ;
   rdfs:comment "The relationship between a pages object and an EntityDescription" ;
   rdfs:domain :PublicationInstance ;
-  rdfs:range :Pages .
+  rdfs:range :Range, :MonographPages, xsd:string .
 
 :begins a rdf:Property ;
   rdfs:comment "The starting point of a range" ;
-  rdfs:domain :Pages ;
+  rdfs:domain :Range ;
   rdfs:range xsd:string .
 
 :ends a rdf:Property ;
   rdfs:comment "The ending point of a range" ;
-  rdfs:domain :Pages ;
+  rdfs:domain :Range ;
   rdfs:range xsd:string .
 
-:hasArpId a rdf:Property ;
+:introduction a rdf:Property ;
+  rdfs:comment "The extent of the introduction of a monograph" ;
+  rdfs:domain :MonographPages ;
+  rdfs:range :Range .
+
+# The property here should either be a string, or a choice of illustration type, e.g. Figures, Illustrated, etc.
+:illustrated a rdf:Property ;
+  rdfs:comment "Denotes whether a monograph is illustrated" ;
+  rdfs:domain :MonographPages ;
+  rdfs:range xsd:boolean .
+
+:arpId a rdf:Property ;
   rdfs:subPropertyOf dcterms:identifier ;
   rdfs:comment "This is an ARP identifier sourced from a third party, which must be verified and fully qualified before it is used as :hasIdentifier" ;
   rdfs:domain :Identity ;
   rdfs:range xsd:string .
 
-:hasOrcid a rdf:Property ;
+:orcid a rdf:Property ;
   rdfs:subPropertyOf dcterms:identifier ;
   rdfs:comment "An externally sourced ORCID" ;
   rdfs:domain :Identity ;
@@ -328,7 +491,7 @@
   rdfs:comment "A research project" ;
   rdfs:subClassOf :Project .
 
-:hasProject a rdf:Property ;
+:project a rdf:Property ;
   rdfs:comment "The relationship between an Publication and a Project" ;
   rdfs:domain :Publication ;
   rdfs:range :Project, :ResearchProject .
@@ -336,12 +499,12 @@
 :Grant a rdfs:Class ;
   rdfs:comment "A Grant from a financing body" .
 
-:hasGrant a rdf:Property ;
+:grant a rdf:Property ;
   rdfs:comment "The Grant ID of a Project" ;
   rdfs:domain :ResearchProject ;
   rdfs:range :Grant .
 
-:hasSource a rdf:Property ;
+:source a rdf:Property ;
   rdfs:comment "The source of funding for a Grant" ;
   rdfs:domain :Grant ;
   rdfs:range  xsd:string .
@@ -349,116 +512,324 @@
 :Approval a rdfs:Class ;
   rdfs:comment "An Approval from an approvals body" .
 
-:hasApproval  a rdf:Property ;
+:approval  a rdf:Property ;
   rdfs:comment "The Approval of a Project" ;
   rdfs:domain :ResearchProject ;
   rdfs:range :Approval .
 
-:hasApprovalDate a rdf:Property ;
+:approvalDate a rdf:Property ;
   rdfs:comment "The date of an Approval" ;
   rdfs:domain :Approval ;
   rdfs:range xsd:dateTime .
 
-:hasApprovedBy a rdf:Property ;
+:approvedBy a rdf:Property ;
   rdfs:comment "The body that approved the Approval" ;
   rdfs:domain :Approval;
   rdfs:range xsd:string .
 
-:hasApprovalStatus a rdf:Property ;
+:approvalStatus a rdf:Property ;
   rdfs:comment "The status of an Approval" ;
   rdfs:domain :Approval ;
   rdfs:range xsd:string .
 
-:hasApplicationCode a rdf:Property ;
+:applicationCode a rdf:Property ;
   rdfs:comment "The application code for an Approval" ;
   rdfs:domain :Approval ;
   rdfs:range xsd:string .
 
+# Publication contexts
+
 :PublicationContext a rdfs:Class ;
   rdfs:comment "A class denoting the context of a publication, where the publication was published" .
+
+:Book a rdfs:Class ;
+  rdfs:subClassOf :PublicationContext ;
+  rdfs:comment "An object in the real world, or an electronic file that forms a written document".
+
+# This is probably just a content type annotation, rather than a type proper
+:Cartograph a rdfs:Class ;
+  rdfs:subClassOf :PublicationContext ;
+  rdfs:comment "An object in the real world, or an electronic file that forms a visual representation of geographic information" .
+
+:Chapter a rdfs:Class ;
+  rdfs:subClassOf :PublicationContext ;
+  rdfs:comment "A subpart of another publication that can be identified as independent of the containing whole in some way" .
+
+# This is more content type annotation than a proper type as it shares all characteristics with Book except ISBN in the case of Master and Bachelor
+:Degree a rdfs:Class ;
+  rdfs:subClassOf :PublicationContext ;
+  rdfs:comment "An object in the real world, or an electronic file that forms a visual representation of work submitted in relation to a course of study" .
+
+# Should probably be renamed to SerialPublication
+:Journal a rdfs:Class ;
+  rdfs:subClassOf :PublicationContext ;
+  rdfs:comment "A serial publication in physical or electronic form" .
+
+# Again, content rather than carrier
+:MusicalContent a rdfs:Class ;
+  rdfs:subClassOf :PublicationContext ;
+  rdfs:comment "An object in the real world, or an electronic file that forms a representation of musical information" .
+
+# Content not carrier
+:Report a rdfs:Class ;
+  rdfs:subClassOf :PublicationContext ;
+  rdfs:comment "An object in the real world, or an electronic file that forms a written representation of descriptive research" .
+
+# PublicationInstances
 
 :PublicationInstance a rdfs:Class ;
   rdfs:comment "A class denoting the exact instance where a publication occurred" .
 
+:BookAbstracts a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A book that contains abstracts of other research" .
+
+:BookAnthology a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A collection of other works" .
+
+:BookMonograph a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A book on a single topic" .
+
+:CartographicMap a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A representation of geographical information in visual form" .
+
+:ChapterArticle a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A monograph that is a sub-part of larger whole" .
+
+:DegreeBachelor a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A thesis presented for a Bachelor degree" .
+
+:DegreeMaster a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A thesis presented for a Master degree" .
+
+:DegreePhd a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A thesis presented for a Doctoral degree" .
+
+# I can't define this
+:FeatureArticle a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "An article in a journal that…" .
+
+:JournalArticle a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "An article in a journal that covers original research on a single topic" .
+
+# Content not type
+:JournalCorrigendum a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A journal article that is acorrection to a journal article" .
+
+# Content, not type
+:JournalInterview a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A journal article that is an interview with a person" .
+
+# Not sure what this actually is
+:JournalLeader a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A journal article written by the editor of the journal" .
+
+:JournalLetter a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A letter to the editor of a journal that has been published in the journal" .
+
+# Content not form
+:JournalReview a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A review of something that is published in a journal" .
+
+:JournalShortCommunication a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A short article of preliminary findings from original research that is published in a journal" .
+
+# Content not form
+:MusicNotation a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "Musical transcription in written form" .
+
+:OtherStudentWork a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A document submitted as part of a course of study" .
+
+# Here, we have an issue
+:ReportBasic a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A report that cannot be defined by audience" .
+
+# Audience, this is policymakers
+:ReportPolicy a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A report on policy" .
+
+# This would be a "Report", I suspect
+:ReportResearch a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "A research report" .
+
+# Not sure about the content here
+:ReportWorkingPaper a rdfs:Class ;
+  rdfs:subClassOf :PublicationInstance ;
+  rdfs:comment "I don't know what this denotes" .
+
 :Reference a rdfs:Class ;
   rdfs:comment "A class denoting an existing, external publication" .
 
-:hasPublicationContext a rdf:Property ;
+:publicationContext a rdf:Property ;
   rdfs:comment "The relationship between a Reference and a Publication context" ;
   rdfs:domain :Reference ;
   rdfs:range :PublicationContext .
 
-:hasPublicationInstance a rdf:Property ;
+:publicationInstance a rdf:Property ;
   rdfs:comment "The relationship between a Reference and the instance of the context in which it was published" ;
   rdfs:domain :Reference ;
   rdfs:range :PublicationInstance .
 
-:hasVolume a rdf:Property ;
+:volume a rdf:Property ;
   rdfs:comment "The volume of a Publication instance (typically journal articles)" ;
   rdfs:domain :PublicationInstance ;
   rdfs:range xsd:string .
 
-:hasIssue a rdf:Property ;
+:issue a rdf:Property ;
   rdfs:comment "The issue of a Publication instance (typically journal articles)" ;
   rdfs:domain :PublicationInstance ;
   rdfs:range xsd:string .
 
-:hasArticleNumber a rdf:Property ;
+:articleNumber a rdf:Property ;
   rdfs:comment "The number given to articles by certain journals" ;
   rdfs:domain :PublicationInstance ;
   rdfs:range xsd:string .
 
-:hasNpiLevel a rdf:Property ;
+# It is actually the publishing house or journal that has a level, not the context.
+:npiLevel a rdf:Property ;
   rdfs:comment "The NPI level of the journal/publisher of the Publication context" ;
   rdfs:domain :PublicationContext ;
-  rdfs:range xsd:string .
+  rdfs:range :Level .
 
-:isOpenAccess a rdf:Property ;
+:Level a rdfs:Class ;
+  rdfs:comment "A representation of the academic merit of a publishing channel in which a resource is published" .
+
+:Level_0 a rdfs:Class ;
+  rdfs:subClassOf :Level ;
+  rdfs:comment "The level indicating that the publishing channel is considered to be of no academic importance" .
+
+:Level_1 a rdfs:Class ;
+  rdfs:subClassOf :Level ;
+  rdfs:comment "The level indicating that the publishing channel is considered to be of some academic importance" .
+
+:Level_2 a rdfs:Class ;
+  rdfs:subClassOf :Level ;
+  rdfs:comment "The level indicating that the publishing channel is considered to be of high academic importance" .
+
+:openAccess a rdf:Property ;
   rdfs:comment "The open access status of a Publication context" ;
   rdfs:domain :PublicationContext ;
   rdfs:range xsd:boolean .
 
-:isPeerReviewed a rdf:Property ;
-  rdfs:comment "Whether a Publication context is peer-reviewed or not" ;
-  rdfs:domain :PublicationInstance ;
+:peerReviewed a rdf:Property ;
+  rdfs:comment "Whether a Publication context or instance is peer-reviewed or not" ;
+  rdfs:domain :PublicationInstance, :PublicationContext ;
   rdfs:range xsd:boolean .
 
-:hasDoi a rdf:Property ;
+:doi a rdf:Property ;
   rdfs:comment "The doi of a Reference" ;
-  rdfs:domain :Reference ;
+  rdfs:domain :Reference, :Publication ;
   rdfs:range xsd:anyURI .
 
-:isAdminstrativeAgreement a rdf:Property ;
+:DoiRequest a rdfs:Class ;
+  rdfs:comment "A request for a DOI, made by a Creator, approved by a Curator" .
+
+:doiRequest a rdf:Property ;
+  rdfs:comment "The Request object for a DOI for a publication" ;
+  rdfs:domain :Publication ;
+  rdfs:range :DoiRequest .
+
+:adminstrativeAgreement a rdf:Property ;
   rdfs:comment "Indication of whether a file is an administrtative agreement or not" ;
   rdfs:domain :File ;
   rdfs:range xsd:boolean .
 
-:isPublisherAuthority a rdf:Property ;
+:publisherAuthority a rdf:Property ;
   rdfs:comment "Indication of whether a file's owner also has the authority to publish a file" ;
   rdfs:domain :File ;
   rdfs:range xsd:boolean .
 
-:hasEmbargoDate a rdf:Property ;
+:embargoDate a rdf:Property ;
   rdfs:comment "The date on which a publishing embargo on a file elapses" ;
   rdfs:domain :File ;
   rdfs:range xsd:date .
 
-:hasReference a rdf:Property ;
+:reference a rdf:Property ;
   rdfs:comment "The relationship between an entity description and a reference" ;
   rdfs:domain :EntityDescription ;
   rdfs:range :Reference .
 
-:hasOriginalMetadataSource a rdf:Property ;
+:originalMetadataSource a rdf:Property ;
   rdfs:comment "The source from which metadata was extracted" ;
   rdfs:domain :EntityDescription ;
   rdfs:range xsd:anyURI .
 
-:isCorrespondingAuthor a rdf:Property ;
+:correspondingAuthor a rdf:Property ;
   rdfs:comment "An indication that the author is a corresponding author for a publication" ;
   rdfs:domain :Contributor ;
   rdfs:range xsd:boolean .
 
-:hasEmail a rdf:Property ;
+:email a rdf:Property ;
   rdfs:comment "The email of a contributor" ;
   rdfs:domain :Contributor ;
+  rdfs:range xsd:string .
+
+:title a rdf:Property ;
+  rdfs:comment "The name of something that traditionally has a title" ;
+  rdfs:domain :PublicationContext ;
+  rdfs:range xsd:string .
+
+# series should be its own Class, and seriesTitle and number should have this as their domain
+:seriesTitle a rdf:Property ;
+  rdfs:comment "The title of a book series of which a resource is part" ;
+  rdfs:domain :PublicationContext ;
+  rdfs:range xsd:string .
+
+:seriesNumber a rdf:Property ;
+  rdfs:comment "The number in the series that a resource has in its published form in a book series" ;
+  rdfs:domain :PublicationContext ;
+  rdfs:range xsd:string .
+
+:url a rdf:Property ;
+  rdfs:comment "The url of a publishing context" ;
+  rdfs:domain :PublicationContext ;
+  rdfs:range xsd:anyURI .
+
+:isbn a rdf:Property ;
+  rdfs:comment "An ISBN associated with a publishing context" ;
+  rdfs:domain :PublishingContext ;
+  rdfs:range xsd:string .
+
+:metadataSource a rdf:Property ;
+  rdfs:comment "A URI resource from which metadata is gleaned" ;
+  rdfs:domain :EntityDescription ;
+  rdfs:range xsd:anyURI .
+
+# Does this not repeat the URI of the publisher Organisation?
+:publisherId a rdf:Property ;
+  rdfs:comment "This is a repetition of the publisher URI" ;
+  rdfs:domain :Publication ;
+  rdfs:range xsd:anyURI .
+
+# publisherOwnerDate should not leak out of the physical model
+:publisherOwnerDate a rdf:property ;
+  rdfs:comment "A compound key used in the physical database model v1" ;
+  rdfs:domain :Publication ;
+  rdfs:range xsd:string .
+
+# doiRequestStatusDate should not leak out of the physical model
+:doiRequestStatusDate a rdf:property ;
+  rdfs:comment "A compound key used in the physical database model v1" ;
+  rdfs:domain :Publication ;
   rdfs:range xsd:string .

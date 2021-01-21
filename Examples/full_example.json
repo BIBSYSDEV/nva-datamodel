@@ -1,177 +1,158 @@
 {
-  "@context": {
-    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "xsd": "http://www.w3.org/2001/XMLSchema#"
-  },
-  "@graph": [
-    {
-      "@id": "_:N8a1bc54d39844a5ab0d89dc0d7c09c94",
-      "@type": "http://nva.unit.no/ontology#FileSet",
-      "http://nva.unit.no/ontology#hasFile": {
-        "@id": "_:N8948579d7d3a4889af5d3f3a8a5b6802"
-      }
-    },
-    {
-      "@id": "_:Nc1c398b992ef41609a11dd538edc6ba2",
-      "@type": "http://nva.unit.no/ontology#Contributor",
-      "http://nva.unit.no/ontology#hasIdentifier": "000001",
-      "http://nva.unit.no/ontology#hasIdentity": {
-        "@id": "http://link.to.base/0000001"
-      },
-      "http://nva.unit.no/ontology#hasRole": {
-        "@id": "http://nva.unit.no/ontology#CreatorRole"
-      }
-    },
-    {
-      "@id": "_:N1d0c68fa3cf54133b4fb366c1d1db531",
-      "@type": "http://nva.unit.no/ontology#Date",
-      "http://nva.unit.no/ontology#hasDay": {
-        "@type": "xsd:gDay",
-        "@value": "01"
-      },
-      "http://nva.unit.no/ontology#hasMonth": {
-        "@type": "xsd:gMonth",
-        "@value": "01"
-      },
-      "http://nva.unit.no/ontology#hasYear": {
-        "@type": "xsd:gYear",
-        "@value": "2019"
-      }
-    },
-    {
-      "@id": "_:Nb8238c589ef34d4496e81e809f6f8897",
-      "http://nva.unit.no/ontology#hasContributor": {
-        "@id": "_:Nc1c398b992ef41609a11dd538edc6ba2"
-      },
-      "http://nva.unit.no/ontology#hasDate": {
-        "@id": "_:N1d0c68fa3cf54133b4fb366c1d1db531"
-      },
-      "http://nva.unit.no/ontology#hasTitle": [
-        {
-          "@language": "en",
-          "@value": "A journey towards a valid data model"
-        },
-        {
-          "@language": "nb",
-          "@value": "En reise mot en valid datamodell"
-        }
-      ],
-      "http://nva.unit.no/ontology#hasType": {
-        "@id": "http://nva.unit.no/ontology#JournalArticle"
-      }
-    },
-    {
-      "@id": "_:N05c67ed810634949b628581971edc9f3",
-      "http://nva.unit.no/ontology#hasIdentifier": "000000001",
-      "http://nva.unit.no/ontology#hasTitle": [
-        {
-          "@language": "nn",
-          "@value": "Unit"
-        },
-        {
-          "@language": "se",
-          "@value": "Unit"
-        },
-        {
-          "@language": "en",
-          "@value": "Unit"
-        },
-        {
-          "@language": "nb",
-          "@value": "Unit"
-        }
-      ]
-    },
-    {
-      "@id": "http://nva.unit.no/publication/000001",
-      "@type": "http://nva.unit.no/ontology#Publication",
-      "http://nva.unit.no/ontology#created": {
-        "@type": "xsd:dateTime",
-        "@value": "2019-01-13T15:31:55.123450+01:00"
-      },
-      "http://nva.unit.no/ontology#hasEntityDescription": {
-        "@id": "_:Nb8238c589ef34d4496e81e809f6f8897"
-      },
-      "http://nva.unit.no/ontology#hasFileSet": {
-        "@id": "_:N8a1bc54d39844a5ab0d89dc0d7c09c94"
-      },
-      "http://nva.unit.no/ontology#hasHandle": {
-        "@id": "https://hndl.net/some/link"
-      },
-      "http://nva.unit.no/ontology#hasIdentifier": "000001",
-      "http://nva.unit.no/ontology#hasLicense": {
-        "@id": "_:Naae7d4b293414e729ca9a3247929d1db"
-      },
-      "http://nva.unit.no/ontology#hasLink": {
-        "@id": "http://nva.unit.no/publication/000001"
-      },
-      "http://nva.unit.no/ontology#hasPublisher": [
-        {
-          "@id": "_:N62ffcb4da1b04c63baa376eca318d4fc"
-        },
-        {
-          "@id": "_:N05c67ed810634949b628581971edc9f3"
-        }
-      ],
-      "http://nva.unit.no/ontology#hasStatus": {
-        "@id": "http://nva.unit.no/ontology#PublishedStatus"
-      },
-      "http://nva.unit.no/ontology#indexedDate": {
-        "@type": "xsd:dateTime",
-        "@value": "2019-01-14T15:31:55.130010+01:00"
-      },
-      "http://nva.unit.no/ontology#modified": {
-        "@type": "xsd:dateTime",
-        "@value": "2019-01-14T15:31:55.123450+01:00"
-      },
-      "http://nva.unit.no/ontology#owner": "zzz@unit.no",
-      "http://nva.unit.no/ontology#publishedDate": {
-        "@type": "xsd:dateTime",
-        "@value": "2019-01-13T15:31:55.123450+01:00"
-      }
-    },
-    {
-      "@id": "_:N62ffcb4da1b04c63baa376eca318d4fc",
-      "@type": "http://nva.unit.no/ontology#Organization",
-      "http://nva.unit.no/ontology#hasIdentifier": "0000001",
-      "http://nva.unit.no/ontology#hasTitle": [
-        {
-          "@language": "en",
-          "@value": "Norwegian Univeristy of Science and Technology"
-        },
-        {
-          "@language": "nb",
-          "@value": "Norges tekniske og naturvitenskaplige universitet"
-        },
-        {
-          "@language": "nn",
-          "@value": "Noregs tekniske og naturvitskaplege universitet"
-        }
-      ]
-    },
-    {
-      "@id": "_:Naae7d4b293414e729ca9a3247929d1db",
-      "@type": "http://nva.unit.no/ontology#License",
-      "http://nva.unit.no/ontology#hasIdentifier": "CCBY4.0",
-      "http://nva.unit.no/ontology#hasLink": {
-        "@id": "http://link.to.license"
-      },
-      "http://nva.unit.no/ontology#hasTitle": {
-        "@language": "en",
-        "@value": "CC BY 4.0"
-      }
-    },
-    {
-      "@id": "_:N8948579d7d3a4889af5d3f3a8a5b6802",
-      "@type": "http://nva.unit.no/ontology#File",
-      "http://nva.unit.no/ontology#hasIdentifier": "0000001",
-      "http://nva.unit.no/ontology#hasMimeType": "application/pdf",
-      "http://nva.unit.no/ontology#hasName": "my_lovely_file.pdf",
-      "http://nva.unit.no/ontology#hasSize": {
-        "@type": "xsd:long",
-        "@value": "22"
-      }
+  "type": "Publication",
+  "identifier": "1b521586-79e4-4767-9563-38a7c51b52f3",
+  "status": "Draft",
+  "owner": "eier@example.org",
+  "publisher": {
+    "type": "Organization",
+    "id": "http://example.org/org/123",
+    "labels": {
+      "no": "Eksempelforlaget"
     }
-  ]
+  },
+  "createdDate": "2020-04-18T11:31:14.888739Z",
+  "modifiedDate": "2020-04-18T11:31:14.888739Z",
+  "handle": "http://example.org/handle/123",
+  "link": "http://example.org/link",
+  "entityDescription": {
+    "type": "EntityDescription",
+    "publicationType": "JournalContent",
+    "publicationSubtype": "JournalArticle",
+    "mainTitle": "Hovedtittelen",
+    "alternativeTitles": {
+      "en": "English title"
+    },
+    "language": "http://example.org/norsk",
+    "date": {
+      "type": "PublicationDate",
+      "year": "2020",
+      "month": "4",
+      "day": "7"
+    },
+    "contributors": [{
+      "type": "Contributor",
+      "identity": {
+        "type": "Identity",
+        "id": "http://example.org/person/123",
+        "name": "Navnesen, Navn",
+        "nameType": "Personal",
+        "orcId": "orc123",
+        "arpId": "arp123"
+      },
+      "affiliations": [{
+        "type": "Organization",
+        "id": "http://example.org/org/123",
+        "labels": {
+          "no": "Eksempelforlaget"
+        }
+      }],
+      "role": "Creator",
+      "sequence": 0,
+      "correspondingAuthor": true,
+      "email": "nn@example.org"
+    }],
+    "npiSubjectHeading": "010",
+    "tags": ["dokumenter", "publikasjoner"],
+    "description": "En streng som beskriver innholdet i dokumentet på en annen måte enn abstrakt",
+    "reference": {
+      "type": "Reference",
+      "publicationContext": {
+        "type": "Journal",
+        "title": "Tim's lovely publishing house",
+        "level": "LEVEL_1",
+        "openAccess": true,
+        "peerReviewed": true,
+        "printIssn": "2222-2227",
+        "onlineIssn": "1111-1119"
+      },
+      "doi": "123123/213123",
+      "publicationInstance": {
+        "type": "JournalArticle",
+        "pages": {
+          "type": "Range",
+          "begin": "1",
+          "end": "15"
+        },
+        "peerReviewed": true,
+        "volume": "24",
+        "issue": "2",
+        "articleNumber": "1234456"
+      }
+    },
+    "metadataSource": "https://example.org/doi?doi=123/123",
+    "abstract": "En lang streng som beskriver innholdet i dokumentet metadataene omtaler."
+  },
+  "fileSet": {
+    "type": "FileSet",
+    "files": [{
+      "type": "File",
+      "identifier": "ba80dd76-029e-4beb-989f-f98b115cb439",
+      "name": "new document(1)",
+      "mimeType": "application/pdf",
+      "size": 2,
+      "license": {
+        "type": "License",
+        "identifier": "NTNU-CC-BY-4.0",
+        "labels": {
+          "no": "CC-BY 4.0"
+        },
+        "link": "http://example.org/license/123"
+      },
+      "administrativeAgreement": true,
+      "publisherAuthority": true,
+      "embargoDate": "2020-04-18T11:31:14.888807Z"
+    }]
+  },
+  "project": {
+    "type": "ResearchProject",
+    "id": "http://link.to.cristin.example.org/123",
+    "name": "Det gode prosjektet",
+    "grants": [{
+      "type": "Grant",
+      "source": "Norsk rødt felaget",
+      "id": "123123"
+    }],
+    "approvals": [{
+      "type": "Approval",
+      "date": "2020-04-18T11:31:14.889020Z",
+      "approvedBy": "REK",
+      "approvalStatus": "APPLIED",
+      "applicationCode": "123123"
+    }]
+  },
+  "publisherId": "http://example.org/org/123",
+  "publisherOwnerDate": "http://example.org/org/123#eier@example.org#2020-04-18T11:31:14.888739Z",
+  "@context": {
+    "@vocab": "https://nva.unit.no/publication#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "type": "@type",
+    "id": "@id",
+    "handle": {
+      "@type": "@id"
+    },
+    "alternativeTitles": {
+      "@container": "@language"
+    },
+    "createdDate": {
+      "@type": "xsd:dateTime"
+    },
+    "publishedDate": {
+      "@type": "xsd:dateTime"
+    },
+    "indexedDate": {
+      "@type": "xsd:dateTime"
+    },
+    "modifiedDate": {
+      "@type": "xsd:dateTime"
+    },
+    "link": {
+      "@type": "@id"
+    },
+    "hasTag": {
+      "@container": "@list"
+    },
+    "labels": {
+      "@container": "@language"
+    }
+  }
 }
