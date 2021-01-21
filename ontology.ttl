@@ -438,22 +438,39 @@
   rdfs:range xsd:string .
 
 :Pages a rdfs:Class ;
-  rdfs:comment "The extent of a document" .
+  rdfs:comment "A published extent denotation of a document, as opposed to the extent of a resource" .
 
+:Range a rdfs:Class ;
+  rdfs:subClassOf :Pages ;
+  rdfs:comment "An extent of a document that has a sub-part relation to another document, where the beginning and end aid location of the document with the structure of its parent" .
+
+# This should be called "extent" as we will likely wish to have durations and size for e.g. videos and data files respectively.
+# We also allow the use of pages within a xsd:string value, this should not be separate.
 :pages a rdf:Property ;
   rdfs:comment "The relationship between a pages object and an EntityDescription" ;
   rdfs:domain :PublicationInstance ;
-  rdfs:range :Pages .
+  rdfs:range :Range, :MonographPages, xsd:string .
 
 :begins a rdf:Property ;
   rdfs:comment "The starting point of a range" ;
-  rdfs:domain :Pages ;
+  rdfs:domain :Range ;
   rdfs:range xsd:string .
 
 :ends a rdf:Property ;
   rdfs:comment "The ending point of a range" ;
-  rdfs:domain :Pages ;
+  rdfs:domain :Range ;
   rdfs:range xsd:string .
+
+:introduction a rdf:Property ;
+  rdfs:comment "The extent of the introduction of a monograph" ;
+  rdfs:domain :MonographPages ;
+  rdfs:range :Range .
+
+# The property here should either be a string, or a choice of illustration type, e.g. Figures, Illustrated, etc.
+:illustrated a rdf:Property ;
+  rdfs:comment "Denotes whether a monograph is illustrated" ;
+  rdfs:domain :MonographPages ;
+  rdfs:range xsd:boolean .
 
 :arpId a rdf:Property ;
   rdfs:subPropertyOf dcterms:identifier ;
@@ -659,3 +676,7 @@
   rdfs:domain :PublishingContext ;
   rdfs:range xsd:string .
 
+:metadataSource a rdf:Property ;
+  rdfs:comment "A URI resource from which metadata is gleaned" ;
+  rdfs:domain :EntityDescription ;
+  rdfs:range xsd:anyURI .
