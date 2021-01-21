@@ -313,9 +313,9 @@
   rdfs:domain :Publication ;
   rdfs:range xsd:anyURI .
 
+# This usage is incorrect, it should only be used for licence links, not :publications
 :link a rdf:Property ;
   rdfs:comment "A link to an external resource, this is unused and is deprecated" ;
-  owl:deprecated "true"^^xsd:boolean ;
   rdfs:domain :License, :Publication ;
   rdfs:range xsd:anyURI .
 
@@ -680,3 +680,21 @@
   rdfs:comment "A URI resource from which metadata is gleaned" ;
   rdfs:domain :EntityDescription ;
   rdfs:range xsd:anyURI .
+
+# Does this not repeat the URI of the publisher Organisation?
+:publisherId a rdf:Property ;
+  rdfs:comment "This is a repetition of the publisher URI" ;
+  rdfs:domain :Publication ;
+  rdfs:range xsd:anyURI .
+
+# publisherOwnerDate should not leak out of the physical model
+:publisherOwnerDate a rdf:property ;
+  rdfs:comment "A compound key used in the physical database model v1" ;
+  rdfs:domain :Publication ;
+  rdfs:range xsd:string .
+
+# doiRequestStatusDate should not leak out of the physical model
+:doiRequestStatusDate a rdf:property ;
+  rdfs:comment "A compound key used in the physical database model v1" ;
+  rdfs:domain :Publication ;
+  rdfs:range xsd:string .
