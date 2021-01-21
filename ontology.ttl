@@ -587,7 +587,7 @@
 
 :doi a rdf:Property ;
   rdfs:comment "The doi of a Reference" ;
-  rdfs:domain :Reference ;
+  rdfs:domain :Reference, :Publication ;
   rdfs:range xsd:anyURI .
 
 :DoiRequest a rdfs:Class ;
@@ -646,5 +646,16 @@
 
 :seriesNumber a rdf:Property ;
   rdfs:comment "The number in the series that a resource has in its published form in a book series" ;
-  rdfs:domain .
+  rdfs:domain :PublicationContext ;
+  rdfs:range xsd:string .
+
+:url a rdf:Property ;
+  rdfs:comment "The url of a publishing context" ;
+  rdfs:domain :PublicationContext ;
+  rdfs:range xsd:anyURI .
+
+:isbn a rdf:Property ;
+  rdfs:comment "An ISBN associated with a publishing context" ;
+  rdfs:domain :PublishingContext ;
+  rdfs:range xsd:string .
 
