@@ -81,6 +81,18 @@
   rdfs:subClassOf :PublicationStatus ;
   rdfs:comment "A state of having been marked for physical deletion" .
 
+:Requested a rdfs:Class ;
+  rdfs:subClassOf :DoiRequestStatus ;
+  rdfs:comment "A state of having requested a DOI" .
+
+:Approved a rdfs:Class ;
+  rdfs:subClassOf :DoiRequestStatus ;
+  rdfs:comment "A state of having approved a request for a DOI" .
+
+:Rejected a rdfs:Class ;
+  rdfs:subClassOf :DoiRequestStatus ;
+  rdfs:comment "A state of having rejected a request for a DOI" .
+
 # File-related
 
 :FileSet a rdfs:Class ;
@@ -118,13 +130,13 @@
 
 :createdDate a rdf:Property ;
   rdfs:comment "The date and time at which a Publication (the NVA concept, not the document itself) was created" ;
-  rdfs:domain :Publication ;
+  rdfs:domain :Publication, :DoiRequest ;
   rdfs:range xsd:dateTime ;
   rdfs:subPropertyOf dcterms:created .
 
 :modifiedDate a rdf:Property ;
   rdfs:comment "The date and time at which a Publication (the NVA concept, not the document itself) was modified" ;
-  rdfs:domain :Publication ;
+  rdfs:domain :Publication, :DoiRequest ;
   rdfs:range xsd:dateTime ;
   rdfs:subPropertyOf dcterms:modified .
 
@@ -243,7 +255,7 @@
 :status a rdf:Property ;
   rdfs:comment "The status of something" ;
   rdfs:domain :Publication, :DoiRequest ;
-  rdfs:range :Status .
+  rdfs:range :PublicationStatus, :DoiRequestStatus .
 
 :sequence a rdf:Property ;
   rdfs:comment "A place in a sequence" ;
@@ -437,7 +449,10 @@
 :DoiRequest a rdfs:Class ;
   rdfs:comment "A request for a DOI, made by a Creator, approved by a Curator" .
 
-
+:doiRequest a rdf:Property ;
+  rdfs:comment "The Request object for a DOI for a publication" ;
+  rdfs:domain :Publication ;
+  rdfs:range :DoiRequest .
 
 :adminstrativeAgreement a rdf:Property ;
   rdfs:comment "Indication of whether a file is an administrtative agreement or not" ;
