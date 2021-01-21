@@ -295,7 +295,7 @@
   rdfs:comment "A kind of name" .
 
 :Personal a rdfs:Class ;
-  rdfs:comment "A name for a person" ;
+  rdfs:comment "A name for a person" .
 
 :Corporate a rdfs:Class ;
   rdfs:comment "A name for a group of individuals organized as a body acting together" .
