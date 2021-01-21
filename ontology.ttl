@@ -554,6 +554,7 @@
   rdfs:domain :PublicationInstance ;
   rdfs:range xsd:string .
 
+# It is actually the publishing house or journal that has a level, not the context.
 :npiLevel a rdf:Property ;
   rdfs:comment "The NPI level of the journal/publisher of the Publication context" ;
   rdfs:domain :PublicationContext ;
