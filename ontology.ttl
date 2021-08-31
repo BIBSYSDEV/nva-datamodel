@@ -462,3 +462,8 @@
   rdfs:comment "The email of a contributor" ;
   rdfs:domain :Contributor ;
   rdfs:range xsd:string .
+
+:subject a rdf:Property ;
+  rdfs:comment "The major topic or theme of the resource, classified according to a controlled vocabulary" ;
+  rdfs:domain :Publication ;
+  rdfs:range xsd:anyURI .
