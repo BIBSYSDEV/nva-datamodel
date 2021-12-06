@@ -1,469 +1,1370 @@
-@prefix : <http://nva.unit.no/ontology#> .
-@prefix datacite: <http://purl.org/spar/datacite/> .
+@prefix nva: <https://example.org/ontology#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-:Publication a rdfs:Class ;
-  rdfs:comment "Base concept for all items in NVA" .
+nva: a owl:Ontology ;
+  dcterms:title "The NVA Core ontology" ;
+  dcterms:description "The terminology definitions used in the APIs used in NVA" ;
+  dcterms:creator "Unit" ;
+  dcterms:publisher "Unit" ;
+  dcterms:license <https://creativecommons.org/publicdomain/zero/1.0> .
 
-# Publication-related concepts
+nva:Resource a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Resource" ;
+  rdfs:comment "A thing in NVA" .
 
-:EntityDescription a rdfs:Class ;
-  rdfs:comment "A description of Publication" .
+nva:Publication a rdfs:Class ;
+  owl:sameAs nva:Resource .
 
-:Contributor a rdfs:Class ;
-  rdfs:comment "A Contributor of a Publication" .
+nva:Agent a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Agent" ;
+  rdfs:comment "A person or a group of people" .
 
-:Organization a rdfs:Class ;
-  rdfs:comment "An Organization" .
+nva:Organization a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Organization" ;
+  rdfs:subClassOf nva:Agent ;
+  rdfs:comment "A group of people forming an administratively coherent group" .
 
-:Publisher a rdfs:Class ;
-  rdfs:comment "A publishing organization" ;
-  rdfs:subClassOf :Organization .
+# Unlikely represented in our model directly, but I think it should be
 
-:Role a rdfs:Class ;
-  rdfs:comment "A Role in the publication process" .
+nva:Person a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Person" ;
+  rdfs:subClassOf nva:Agent ;
+  rdfs:comment "An individual human being" .
 
-:PublicationType a rdfs:Class ;
-  rdfs:comment "Base class for Publication types" .
+nva:Time a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Time" ;
+  rdfs:comment "A instant or a period defined in relation to a common temporal scheme" .
 
-:JournalArticle a rdfs:Class ;
-  rdfs:subClassOf :PublicationType ;
-  rdfs:comment "A publication type that is published in an academic Journal" .
+nva:Event a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Event" ;
+  rdfs:comment "A thing that has or will occur" .
 
-:Article a rdfs:Class ;
-  rdfs:subClassOf :JournalArticle ;
-  rdfs:comment "A traditional article published in a journal" .
+nva:VirtualEvent a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:subClassOf nva:Event ;
+  rdfs:label "VirtualEvent" ;
+  rdfs:comment "A thing that has or will occur in a virtual forum" .
 
-:ShortCommunication a rdfs:Class ;
-  rdfs:subClassOf :JournalArticle ;
-  rdfs:comment "A short communication published in a journal" .
+nva:Meeting a rdfs:Class ;
+  rdfs:subClassOf nva:Event ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Meeting" ;
+  rdfs:comment "A gathering of people designed to discuss a common topic or set of topics" .
 
-:Editorial a rdfs:Class ;
-  rdfs:subClassOf :JournalArticle ;
-  rdfs:comment "An Editorial published in a journal" .
+nva:Place a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Place" ;
+  rdfs:comment "A geographically located thing" .
 
-:Letter a rdfs:Class ;
-  rdfs:subClassOf :JournalArticle ;
-  rdfs:comment "A letter published in a journal" .
+nva:DoiRequest a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "DoiRequest" ;
+  rdfs:comment "A request event for a DOI" .
 
-:Review a rdfs:Class ;
-  rdfs:subClassOf :JournalArticle ;
-  rdfs:comment "A review published in a journal" .
+nva:EntityDescription a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "EntityDescription" ;
+  rdfs:comment "A collection of metadata associated with a Resource" .
 
-:License a rdfs:Class ;
-  rdfs:comment "A license describing the legal rights associated with a Publication" .
+nva:PublicationDate a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "PublicationDate" ;
+  rdfs:comment "A temporal instant" .
 
-:Date a rdfs:Class ;
-  rdfs:comment "A date associated with a Publication" .
+nva:Contributor a rdfs:Class ; # Should be renamed to "Contribution"
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Contributor" ;
+  rdfs:comment "A participation event in the creation of a resource" .
 
-# Publication status concepts
+# The following three classes are problematic since they are subclassed in from an unnecessary class
+# Person should be added and Identity, Personal, Organizational should be removed
 
-:Status a rdfs:Class ;
-  rdfs:comment "A status of a Publication in the NVA workflow" .
+nva:Identity a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Identity" ;
+  rdfs:comment "A person or organization that has responsibility for a contribution event" .
 
-:PublishedStatus a rdfs:Class ;
-  rdfs:subClassOf :Status ;
-  rdfs:comment "The status of a published Publication" .
+nva:Personal a rdfs:Class ; # Really just "Person"
+  rdfs:isDefinedBy nva: ;
+  rdfs:subClassOf nva:Identity ;
+  rdfs:label "Personal" ;
+  rdfs:comment "A person" .
+
+nva:Organizational a rdfs:Class ; # Really, this is just "Organization"
+  rdfs:isDefinedBy nva: ;
+  rdfs:subClassOf nva:Identity ;
+  rdfs:label "Organizational" ;
+  rdfs:comment "An organization" .
+
+nva:Reference a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Reference" ;
+  rdfs:comment "A set of identifying information for a previously published resource such as a journal article" .
+
+nva:BookSeries a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "BookSeries" ;
+  rdfs:comment "A named collection of books that are produced over a period of time" .
+
+nva:Series a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Series" ;
+  rdfs:subClassOf nva:BookSeries ;
+  rdfs:comment "A known and documented BookSeries" .
+
+nva:UnconfirmedSeries a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "UnconfirmedSeries" ;
+  rdfs:subClassOf nva:BookSeries ;
+  rdfs:comment "A postulated BookSeries that has not been verified as existing" .
+
+nva:PublishingHouse a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "PublishingHouse" ;
+  rdfs:subClassOf nva:Organization ;
+  rdfs:comment "An organization responsible for the making available of a resource" .
+
+nva:Publisher a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Publisher" ;
+  rdfs:subClassOf nva:PublishingHouse ;
+  rdfs:comment "A known organization responsible for the making available of a resource" .
+
+nva:UnconfirmedPublisher a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "UnconfirmedPublisher" ;
+  rdfs:subClassOf nva:PublishingHouse ;
+  rdfs:comment "A postulated, but unverified, organization responsible for the making available of a resource" .
+
+nva:Pages a rdfs:Class ; # Should probably be "Extent" to include "length (temporal), size (inches), size (kB), etc.
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Pages" ;
+  rdfs:comment "A description of the extent of a resource" .
+
+nva:MonographPages a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "MonographPages" ;
+  rdfs:subClassOf nva:Pages ;
+  rdfs:comment "An extent associated with monographs, including the introduction, main body and illustrations" .
+
+nva:Range a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Range" ;
+  rdfs:subClassOf nva:Pages ;
+  rdfs:comment "An extent in terms of an interval with a beginning and an end" .
+
+nva:AdditionalIdentifier a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "AdditionalIdentifier" ;
+  rdfs:comment "An identifier that is supplementary to standard identifiers used in NVA, often retained from legacy systems" .
+
+# Subjects
+
+nva:Concept a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Concept" ;
+  rdfs:comment "An shared idea or mental thing" .
 
 # Files
 
-:FileSet a rdfs:Class ;
-  rdfs:comment "The set of Files associated with a Publication" .
+nva:FileSet a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "FileSet" ;
+  rdfs:comment "A collection of files" .
 
-:File a rdfs:Class ;
-  rdfs:comment "A File associated with a Publication" .
+nva:File a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "File" ;
+  rdfs:comment "A digital document" .
+
+nva:License a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "License" ;
+  rdfs:comment "A rights document defining what is permitted and/or forbidden for whom" .
+
+# Projects
+
+nva:Project a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Project" ;
+  rdfs:comment "A time-limited effort towards a common goal" .
+
+nva:ResearchProject a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:subClassOf nva:Project ;
+  rdfs:label "ResearchProject" ;
+  rdfs:subClassOf nva:Project ;
+  rdfs:comment "A time-limited effort towards the goal of producing research" .
+
+nva:Grant a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Grant" ;
+  rdfs:comment "A funding event" .
+
+nva:Approval a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Grant" ;
+  rdfs:comment "An approval events by an approvals body" .
+
+# PublicationContexts
+
+nva:PublicationContext a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "PublicationContext" ;
+  rdfs:comment "An original publication venue for a resource" .
+
+nva:Book a rdfs:Class ; # Honestly, this no longer makes sense.
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Book" ;
+  rdfs:subClassOf nva:PublicationContext ;
+  rdfs:comment "An definition of a traditional monograph" .
+
+nva:Chapter a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Chapter" ;
+  rdfs:subClassOf nva:PublicationContext ;
+  rdfs:comment "An definition of a part of a monograph" .
+
+nva:Degree a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Degree" ;
+  rdfs:subClassOf nva:PublicationContext ;
+  rdfs:comment "An definition of a publication submitted as part of a course of study" .
+
+nva:Journal a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Journal" ;
+  rdfs:subClassOf nva:PublicationContext ;
+  rdfs:comment "An definition of a publication submitted to a periodical such as an academic journal or newspaper" .
+
+nva:Report a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Report" ;
+  rdfs:subClassOf nva:PublicationContext ;
+  rdfs:comment "An definition of a channel where content was originally made available" .
+
+nva:Periodical a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Periodical" ;
+  rdfs:subClassOf nva:PublicationContext ;
+  rdfs:comment "An definition of a channel where content was originally made available" .
+
+nva:Journal a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Journal" ;
+  rdfs:subClassOf nva:Periodical ;
+  rdfs:comment "An definition of a channel where content was originally made available" .
+
+nva:UnconfirmedJournal a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "UnconfirmedJournal" ;
+  rdfs:subClassOf nva:Periodical ;
+  rdfs:comment "An definition of a channel where content was originally made available" .
+
+# PublicationInstance
+
+nva:PublicationInstance a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "PublicationInstance" ;
+  rdfs:comment "A thing that was published" .
+
+nva:BookMonograph a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "BookMonograph" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual creative work that covers a single topic" .
+
+nva:BookAbstracts a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "BookAbstracts" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual creative work comprised of research abstracts" .
+
+nva:BookAnthology a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "BookAnthology" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual creative work containing multiple chapters by multiple authors" .
+
+nva:BookMonograph a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "BookMonograph" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual creative work that covers a single topic" .
+
+nva:ChapterArticle a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "ChapterArticle" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual chapter that covers a single topic" .
+
+nva:DegreeBachelor a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "DegreeBachelor" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual work submitted as part of a Bachelor's degree" .
+
+nva:DegreeMaster a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "DegreeMaster" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual work submitted as part of a Master's degree" .
+
+nva:DegreePhd a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "DegreePhd" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual work submitted as part of a course of study for the doctor of philosophy degree" .
+
+nva:FeatureArticle a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "FeatureArticle" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual work submitted to a periodical" . # What is this?
+
+nva:JournalArticle a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "JournalArticle" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual work submitted to a periodical" .
+
+nva:JournalInterview a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "JournalInterview" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual interview submitted to a periodical" .
+
+nva:JournalCorrigendum a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "JournalCorrigendum" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual correction of previous work submitted to a periodical" .
+
+nva:JournalLeader a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "JournalLeader" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual opinion submitted to a periodical" .
+
+nva:JournalLetter a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "JournalLetter" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual letter submitted to a periodical" .
+
+nva:JournalReview a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "JournalReview" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual work reviewing something submitted to a periodical" .
+
+nva:JournalShortCommunication a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "JournalShortCommunication" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A short textual work submitted to a periodical" .
+
+nva:OtherStudentWork a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "OtherStudentWork" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A textual work submitted as part of a course of study" .
+
+nva:ReportBasic a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "ReportBasic" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A report with no other qualified type (e.g. a standard report)" .
+
+nva:ReportPolicy a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "ReportPolicy" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A policy report" .
+
+nva:ReportResearch a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "ReportResearch" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A research report" .
+
+nva:ReportWorkingPaper a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "ReportWorkingPaper" ;
+  rdfs:subClassOf nva:PublicationInstance ;
+  rdfs:comment "A technical report" .
 
 # Roles
-:CreatorRole a rdfs:Class ;
-  rdfs:comment "The base class for all creator roles" ;
-  rdfs:subClassOf :Role .
 
-:ContributorRole a rdfs:Class ;
-  rdfs:comment "The base class for all contributor roles" ;
-  rdfs:subClassOf :Role .
+nva:Role a rdfs:Class ; # I suspect that Role in fact equals "Contribution"
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Role" ;
+  rdfs:comment "A type of activity associated with a contribution" .
 
-# Relations
-# Basic relations
+nva:Advisor a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Advisor" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type Advisor" .
 
-:hasIdentifier a rdf:Property ;
-  rdfs:comment "An identifier for a thing" ;
-  rdfs:subPropertyOf dcterms:identifier ;
-  rdfs:domain :Publication, :File, :Organization, :License, :Identity, :Grant ;
+nva:Creator a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Creator" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type Creator" .
+
+nva:Editor a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Editor" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type Editor" .
+
+nva:Illustrator a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Illustrator" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type Illustrator" .
+
+nva:Other a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Other" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type Other" .
+
+nva:ContactPerson a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "ContactPerson" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type ContactPerson" .
+
+nva:DataCollector a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "DataCollector" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type DataCollector" .
+
+nva:DataCurator a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "DataCurator" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type DataCurator" .
+
+nva:DataManager a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "DataManager" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type DataManager" .
+
+nva:Distributor a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Distributor" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type Distributor" .
+
+nva:Funder a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Funder" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type Funder" .
+
+nva:HostingInstitution a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "HostingInstitution" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type HostingInstitution" .
+
+nva:Producer a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Producer" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type Producer" .
+
+nva:ProjectLeader a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "ProjectLeader" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type ProjectLeader" .
+
+nva:ProjectManager a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "ProjectManager" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type ProjectManager" .
+
+nva:ProjectMember a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "ProjectMember" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type ProjectMember" .
+
+nva:RegistrationAgency a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "RegistrationAgency" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type RegistrationAgency" .
+
+nva:RegistrationAuthority a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "RegistrationAuthority" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type RegistrationAuthority" .
+
+nva:RelatedPerson a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "RelatedPerson" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type RelatedPerson" .
+
+nva:Researcher a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Researcher" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type Researcher" .
+
+nva:ResearchGroup a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "ResearchGroup" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type ResearchGroup" .
+
+nva:RightsHolder a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "RightsHolder" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type RightsHolder" .
+
+nva:Sponsor a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Sponsor" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type Sponsor" .
+
+nva:Supervisor a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Supervisor" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type Supervisor" .
+
+nva:WorkPackageLeader a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "WorkPackageLeader" ;
+  rdfs:subClassOf nva:Role ; # Should be "Contribution"
+  rdfs:comment "A contribution of type WorkPackageLeader" .
+
+# Messages
+
+nva:Message a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Message" ;
+  rdfs:comment "A communication event" .
+
+nva:DoiRequestMessage a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "DoiRequestMessage" ;
+  rdfs:subClassOf nva:Message ;
+  rdfs:comment "A message associated with a DoiRequest event" .
+
+# Statuses
+
+nva:Status a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Status" ;
+  rdfs:comment "A state-of-affairs for something" .
+
+nva:Draft a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Draft" ;
+  rdfs:subClassOf nva:Status ;
+  rdfs:comment "Indicates that a Resource is not yet published" .
+
+nva:Published a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Published" ;
+  rdfs:subClassOf nva:Status ;
+  rdfs:comment "A status indicating that a Resource is published" .
+
+nva:Requested a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Requested" ;
+  rdfs:subClassOf nva:Status ;
+  rdfs:comment "A status indicating that a DoiRequest has been initiated" .
+
+nva:Approved a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Approved" ;
+  rdfs:subClassOf nva:Status ;
+  rdfs:comment "A status indicating that a DoiRequest has been approved" .
+
+nva:Rejected a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Rejected" ;
+  rdfs:subClassOf nva:Status ;
+  rdfs:comment "A status indicating that a DoiRequest has been rejected" .
+
+nva:New a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "New" ;
+  rdfs:subClassOf nva:Status ;
+  rdfs:comment "A status indicating that a Resource is imported from a third-party, and unedited" .
+
+nva:DraftForDeletion a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "DraftForDeletion" ;
+  rdfs:subClassOf nva:Status ;
+  rdfs:comment "A status indicating that a Resource is unpublished and to be deleted" .
+
+nva:NotApplied a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "NotApplied" ;
+  rdfs:subClassOf nva:Status ;
+  rdfs:comment "A status indicating that an approval has not (yet) been submitted" .
+
+nva:Applied a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Applied" ;
+  rdfs:subClassOf nva:Status ;
+  rdfs:comment "A status indicating that an approval has been submitted" .
+
+nva:Approved a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Approved" ;
+  rdfs:subClassOf nva:Status ;
+  rdfs:comment "A status indicating that an approval has been granted" .
+
+nva:Declined a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Declined" ;
+  rdfs:subClassOf nva:Status ;
+  rdfs:comment "A status indicating that an approval has been declined pending changes" .
+
+nva:Rejection a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "Rejection" ;
+  rdfs:subClassOf nva:Status ;
+  rdfs:comment "A status indicating that an approval has been rejected" .
+
+nva:JournalArticleContentType a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "JournalArticleContentType" ;
+  rdfs:comment "A content type for journal articles" .
+
+nva:ResearchArticle a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "ResearchArticle" ;
+  rdfs:subClassOf nva:JournalArticleContentType ;
+  rdfs:comment "A research article" .
+
+nva:ReviewArticle a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "ReviewArticle" ;
+  rdfs:subClassOf nva:JournalArticleContentType ;
+  rdfs:comment "A review article" .
+
+nva:CaseReport a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "CaseReport" ;
+  rdfs:subClassOf nva:JournalArticleContentType ;
+  rdfs:comment "A case report article" .
+
+nva:StudyProtocol a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "StudyProtocol" ;
+  rdfs:subClassOf nva:JournalArticleContentType ;
+  rdfs:comment "A study protocol article" .
+
+nva:ProfessionalArticle a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "ProfessionalArticle" ;
+  rdfs:subClassOf nva:JournalArticleContentType ;
+  rdfs:comment "A professional article" . #what?
+
+nva:PopularScienceArticle a rdfs:Class ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "PopularScienceArticle" ;
+  rdfs:subClassOf nva:JournalArticleContentType ;
+  rdfs:comment "A popular science article" .
+
+# Properties
+
+# Note, if you are unfamiliar with standard web serializations, you may be confused by the id/@id/identifier dichotomy
+# In NVA, JSON-LD "@id" is typically aliased to "id" to remove the overhead of accessing "@id" in most programming
+# languages. "@id" has a special status (and thereby "id" also), whereas "identifier" is simply a term.
+# They are *not* synonymous.
+
+nva:identifier a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "identifier" ;
+  rdfs:comment "A context-unique string that identifies a thing in its given context" ;
+  rdfs:domain rdfs:Class ;
   rdfs:range xsd:string .
 
-# Linking mechanisms
+nva:status a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "status" ;
+  rdfs:comment "The publication status of a Resource" ;
+  rdfs:domain nva:Resource ;
+  rdfs:range nva:Status .
 
-:hasEntityDescription a rdf:Property ;
-  rdfs:comment "The relationship between a Publication and its description" ;
-  rdfs:domain :Publication ;
-  rdfs:range :EntityDescription .
-
-
-# Dates
-
-:created a rdf:Property ;
-  rdfs:comment "The date and time at which a Publication (the NVA concept, not the document itself) was created" ;
-  rdfs:domain :Publication ;
-  rdfs:range xsd:dateTime ;
-  rdfs:subPropertyOf dcterms:created .
-
-:modified a rdf:Property ;
-  rdfs:comment "The date and time at which a Publication (the NVA concept, not the document itself) was modified" ;
-  rdfs:domain :Publication ;
-  rdfs:range xsd:dateTime ;
-  rdfs:subPropertyOf dcterms:modified .
-
-:publishedDate a rdf:Property ;
-  rdfs:comment "The date and time at which a Publication (the NVA concept, not the document itself) was published in NVA" ;
-  rdfs:domain :Publication ;
-  rdfs:range xsd:dateTime .
-
-:indexedDate a rdf:Property ;
-  rdfs:comment "The date and time at which a Publication (the NVA concept, not the document itself) was indexed in NVA" ;
-  rdfs:domain :Publication ;
-  rdfs:range xsd:dateTime .
-
-# Persons and identities
-
-:owner a rdf:Property ;
-  rdfs:comment "The owner of a file defined with an identifier" ;
-  rdfs:domain :Publication ;
+nva:owner a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "owner" ;
+  rdfs:comment "The identifier of the owner of a Resource" ;
+  rdfs:domain nva:Resource ;
   rdfs:range xsd:string .
 
-:hasContributor a rdf:Property ;
-  rdfs:comment "The Contributor to a Publication in NVA" ;
-  rdfs:domain :EntityDescription ;
-  rdfs:range :Contributor .
+# Note that the following property may denote the relation between an NVA resource and an Organization or
+# a PublishingContext and a Publisher .
 
-:hasLabel a rdf:Property ;
-  rdfs:comment "The language-tagged title object related to a Entity Description" ;
-  rdfs:domain :License, :Organization ;
+nva:publisher a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "publisher" ;
+  rdfs:comment "The organization responsible for publishing a resource" ;
+  rdfs:domain rdfs:Class ;
+  rdfs:range rdfs:Class .
+
+# label: preferred term, can be any datatype literal (including xsd:string, rdf:langString).
+# We previously opened for using context-based terms for this, which was a mistake.
+# E.g. people had names, books had titles, organizations had labels. Bad idea.
+# While for non-expert users, this may be confusing since the range of "label" may be n-datatypes,
+# and the structure observed in (framed) JSON-LD will be either a string or a language map,
+# there is no variation in the semantics of n terms, and we should use only one to mean
+# "the token by which a thing is known".
+
+nva:label a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "label" ;
+  rdfs:comment "A linguistic token by which a thing is known" ;
+  rdfs:subPropertyOf rdfs:label ;
+  rdfs:domain rdfs:Class ;
+  rdfs:range rdfs:Literal .
+
+# The domain of the following term is broad as it is used in several cases.
+# Presumably, this is a valid xsd:dateTime, but this needs to be verified .
+
+nva:createdDate a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "createdDate" ;
+  rdfs:comment "A point in time at which a Resource was created" ;
+  rdfs:domain rdfs:Class ;
+  rdfs:range xsd:dateTime .
+
+nva:modifiedDate a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "modifiedDate" ;
+  rdfs:comment "A point in time at which a Resource was last modified" ;
+  rdfs:domain rdfs:Class ;
+  rdfs:range xsd:dateTime .
+
+nva:publishedDate a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "publishedDate" ;
+  rdfs:comment "A point in time at which a Resource was published" ;
+  rdfs:domain nva:Resource ;
+  rdfs:range xsd:dateTime .
+
+nva:indexedDate a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "indexedDate" ;
+  rdfs:comment "A point in time at which a Resource was last indexed" ;
+  rdfs:domain nva:Resource ;
+  rdfs:range xsd:dateTime .
+
+nva:handle a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "handle" ;
+  rdfs:comment "A Handle (HNDL) for a resource" ;
+  rdfs:domain nva:Resource ;
+  rdfs:range xsd:anyURI .
+
+nva:doi a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "doi" ;
+  rdfs:comment "A DOI associated with a thing" ;
+  rdfs:domain rdfs:Class ; # scope here may be nva:Resource or nva:Reference
+  rdfs:range xsd:anyURI .
+
+nva:doiRequest a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "doiRequest" ;
+  rdfs:comment "A request for a DOI for a resource" ;
+  rdfs:domain nva:Resource ;
+  rdfs:range nva:DoiRequest .
+
+nva:message a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "message" ;
+  rdfs:comment "A message associated with a DoiRequest" ;
+  rdfs:domain nva:DoiRequest ;
+  rdfs:range nva:DoiRequestMessage .
+
+nva:text a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "text" ;
+  rdfs:comment "A body text of a DoiRequestMessage" ;
+  rdfs:domain nva:DoiRequestMessage ;
+  rdfs:range xsd:string .
+
+nva:author a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "author" ;
+  rdfs:comment "An author of a DoiRequestMessage" ;
+  rdfs:domain nva:DoiRequestMessage ;
+  rdfs:range xsd:string .
+
+nva:timestamp a rdf:property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "timestamp" ;
+  rdfs:comment "Denotes the point in time when a DoiRequestMessage was submitted" ;
+  rdfs:domain nva:DoiRequestMessage ;
+  rdfs:range xsd:dateTime .
+
+# Link for resource is deprecated, I'm thinking that link on License should in fact be the URI (id) for the license.
+
+nva:link a rdf:Property ;
+  owl:deprecated "true"^^xsd:boolean ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "link" ;
+  rdfs:comment "This property has never been used and should be removed" ;
+  rdfs:domain nva:Resource ;
+  rdfs:range xsd:anyURI .
+
+nva:entityDescription a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "entityDescription" ;
+  rdfs:comment "Denotes the publication metadata for a Resource" ;
+  rdfs:domain nva:Resource ;
+  rdfs:range nva:EntityDescription .
+
+nva:mainTitle a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "mainTitle" ;
+  rdfs:comment "Denotes the name of a resource, typically from the title-page of the resource" ;
+  rdfs:subPropertyOf rdfs:label ;
+  rdfs:domain nva:EntityDescription ;
+  rdfs:range xsd:string .
+
+nva:alternativeTitle a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "alternativeTitle" ;
+  rdfs:comment "Denotes an alternative name of a resource, for example, a translated name" ;
+  rdfs:subPropertyOf rdfs:label ;
+  rdfs:domain nva:EntityDescription ;
   rdfs:range rdf:langString .
 
-:hasName a rdf:Property ;
-  rdfs:comment "The name of a thing" ;
-  rdfs:domain :File, :Identity, :Project, :ResearchProject;
-  rdfs:range xsd:string .
-
-:hasIdentity a rdf:Property ;
-  rdfs:comment "The identity of a contributor" ;
-  rdfs:domain :Contributor ;
-  rdfs:range :Identity .
-
-:Identity a rdfs:Class ;
-  rdfs:comment "The identity of the contributor" .
-
-:hasRole a rdf:Property ;
-  rdfs:comment "The Role of the Contributor" ;
-  rdfs:domain :Contributor ;
-  rdfs:range :Role .
-
-:hasHandle a rdf:Property ;
-  rdfs:comment "The Handle (HNDL) of a Publication" ;
-  rdfs:domain :Publication ;
+nva:language a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "language" ;
+  rdfs:comment "A language used in a resource" ;
+  rdfs:domain nva:EntityDescription ;
   rdfs:range xsd:anyURI .
 
-:hasLink a rdf:Property ;
-  rdfs:comment "A link to an external resource" ;
-  rdfs:domain :License, :Publication ;
-  rdfs:range xsd:anyURI .
+# Alas, in Approvals, a date is a timestamp
 
-:hasYear a rdf:Property ;
-  rdfs:comment "The year of a Date" ;
-  rdfs:domain :Date ;
-  rdfs:range xsd:gYear .
+nva:date a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "date" ;
+  rdfs:comment "A publication date for a Resource" ;
+  rdfs:domain nva:EntityDescription ;
+  rdfs:range nva:PublicationDate .
 
-:hasMonth a rdf:Property ;
-  rdfs:comment "The month of a Date" ;
-  rdfs:domain :Date ;
-  rdfs:range xsd:gMonth .
-
-:hasDay a rdf:Property ;
-  rdfs:comment "The day of a date" ;
-  rdfs:domain :Date ;
-  rdfs:range xsd:gDay .
-
-:hasFile a rdf:Property ;
-  rdfs:comment "A file belonging to a FileSet" ;
-  rdfs:domain :FileSet ;
-  rdfs:range :File .
-
-:hasMimeType a rdf:Property ;
-  rdfs:comment "The mime-type string associated with a File" ;
-  rdfs:domain :File ;
+nva:year a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "year" ;
+  rdfs:comment "A string representation of a year" ;
+  rdfs:domain nva:PublicationDate ;
   rdfs:range xsd:string .
 
-:hasSize a rdf:Property ;
-  rdfs:comment "The file size of a File" ;
-  rdfs:domain :File ;
-  rdfs:range xsd:long .
+nva:month a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "month" ;
+  rdfs:comment "A string representation of a month" ;
+  rdfs:domain nva:PublicationDate ;
+  rdfs:range xsd:string .
 
-:hasDate a rdf:Property ;
-  rdfs:comment "A date associated with a Publication" ;
-  rdfs:domain :EntityDescription ;
-  rdfs:range :Date .
+nva:day a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "day" ;
+  rdfs:comment "A string representation of a day" ;
+  rdfs:domain nva:PublicationDate ;
+  rdfs:range xsd:string .
 
-:hasType a rdf:Property ;
-  rdfs:comment "A closed-category type associated with a Publication" ;
-  rdfs:domain :EntityDescription ;
-  rdfs:range :PublicationType, :JournalArticle .
+nva:contributor a rdf:Property ; # This really should be "contribution"
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "contributor" ;
+  rdfs:comment "Denotes participation in the creation of a Resource" ;
+  rdfs:domain nva:EntityDescription ;
+  rdfs:range nva:Contributor .
 
-:hasSubtype a rdf:Property ;
-  rdfs:comment "The subtype of a Publication" ;
-  rdfs:domain :Publication ;
-  rdfs:range :Article, :Editorial, :Letter, :Review, :ShortCommunication .
+nva:identity a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "identity" ;
+  rdfs:comment "A person or group of persons responsible for the contribution" ;
+  rdfs:domain nva:Contributor ;
+  rdfs:range nva:Identity .
 
-:hasPublisher a rdf:Property ;
-  rdfs:comment "The publisher of a Publication" ;
-  rdfs:domain :Publication ;
-  rdfs:range :Publisher .
+nva:name a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "name" ;
+  rdfs:comment "A name of a thing or person" ;
+  rdfs:subPropertyOf rdfs:label ;
+  rdfs:domain nva:Class ;
+  rdfs:range xsd:string .
 
-:hasLicense a rdf:Property ;
-  rdfs:comment "The license associated with a Publication" ;
-  rdfs:domain :File ;
-  rdfs:range :License .
+nva:nameType a rdf:Property ; # This is a stupid mistake on my part, this should be the type of the Identity
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "nameType" ;
+  rdfs:comment "A definition of the kind of Identity, basically dual typing. Unfortunately, this was not well thought out" ;
+  rdfs:domain nva:Identity ;
+  rdfs:range nva:Personal, nva:Organizational .
 
-:hasFileSet a rdf:Property ;
-  rdfs:comment "The FileSet related to a Publication" ;
-  rdfs:domain :Publication ;
-  rdfs:range :FileSet .
+nva:orcId a rdf:Property ; # really "orcid", not "orcId".
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "orcId" ;
+  rdfs:comment "An ORCID of Person" ;
+  rdfs:subPropertyOf nva:identifier ;
+  rdfs:domain nva:Identity ;
+  rdfs:range xsd:string .
 
+# This property was never used as intended and should have been read-only from the start
 
-# Status
+nva:arpId a rdf:Property ;
+  owl:deprecated "true"^^xsd:boolean ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "arpId" ;
+  rdfs:comment "A BARE system control number of a person or organization" ;
+  rdfs:subPropertyOf nva:identifier ;
+  rdfs:domain nva:Identity ;
+  rdfs:range xsd:string .
 
-:hasStatus a rdf:Property ;
-  rdfs:comment "The status of a document in NVA" ;
-  rdfs:domain :Publication ;
-  rdfs:range :Status .
+nva:affiliation a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "affiliation" ;
+  rdfs:comment "An organization on whose behalf a contribution was made" ;
+  rdfs:domain nva:Contribution ;
+  rdfs:range xsd:Organization .
 
-:hasSequence a rdf:Property ;
-  rdfs:comment "A place in a sequence" ;
-  rdfs:domain :Contributor ;
+# Here, again, we see a problem where we in fact apply a second type unnecessarily.
+# Should be refactored so that type "Contribution" has subclasses and these are applied as the main type.
+
+nva:role a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "role" ;
+  rdfs:comment "A definition of the kind of contribution that was made" ;
+  rdfs:domain nva:Contribution ;
+  rdfs:range xsd:ContributionType .
+
+nva:sequence a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "sequence" ;
+  rdfs:comment "A definition of what listing-priority the contribution should be given when displayed for humans" ;
+  rdfs:domain nva:Contribution ;
   rdfs:range xsd:nonNegativeInteger .
 
-:hasAffiliation a rdf:Property ;
-  rdfs:comment "The relationship between a Contributor and an Organization" ;
-  rdfs:domain :Contributor ;
-  rdfs:range :Organization .
+nva:correspondingAuthor a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "correspondingAuthor" ;
+  rdfs:comment "Denotes an Contribution that is made by the person or organization that is considered to be the corresponding author for a resource" ;
+  rdfs:domain nva:Contribution ;
+  rdfs:range xsd:boolean .
 
-:hasMainTitle a rdf:Property ;
-  rdfs:subPropertyOf dcterms:title ;
-  rdfs:comment "The given title of a Publication" ;
-  rdfs:domain :EntityDescription ;
+nva:email a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "email" ;
+  rdfs:comment "Denotes an email address" ;
+  rdfs:domain rdfs:Class ; # Putting class, since the property is generic
   rdfs:range xsd:string .
 
-:hasAlternativeTitle a rdf:Property ;
-  rdfs:subPropertyOf dcterms:title ;
-  rdfs:comment "An alternative title associated with a Publication, including translations" ;
-  rdfs:domain :EntityDescription ;
-  rdfs:range rdf:langString .
+# I'm not sure why this property is not part of "Controlled vocabularies"
 
-:hasLanguage a rdf:Property ;
-  rdfs:subPropertyOf dcterms:language ;
-  rdfs:comment "The language which is required to usefully interpret the Publication" ;
-  rdfs:domain :EntityDescription ;
+nva:npiSubjectHeading a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "npiSubjectHeading" ;
+  rdfs:comment "Denotes an topic code from the NPI controlled vocabulary used when categorizing a resource" ;
+  rdfs:domain nva:EntityDescription ;
+  rdfs:range xsd:string .
+
+nva:tag a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "tag" ;
+  rdfs:comment "Denotes an topic or concept related to the content of a resource" ;
+  rdfs:domain nva:EntityDescription ;
+  rdfs:range xsd:string .
+
+nva:description a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "tag" ;
+  rdfs:comment "Denotes a textual description of the content of a resource" ;
+  rdfs:domain nva:EntityDescription ;
+  rdfs:range xsd:string .
+
+nva:reference a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "reference" ;
+  rdfs:comment "Denotes an extended description of the type and publishing information of a resource" ;
+  rdfs:domain nva:EntityDescription ;
+  rdfs:range nva:Reference .
+
+# Should have named this "context" for simplicity's sake
+
+nva:publicationContext a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "publicationContext" ;
+  rdfs:comment "Denotes a description of the format and original publication information of a resource" ;
+  rdfs:domain nva:Reference ;
+  rdfs:range nva:PublicationContext .
+
+nva:series a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "series" ;
+  rdfs:comment "Denotes a description of the format and publication information of a resource" ;
+  rdfs:domain nva:PublicationContext ;
+  rdfs:range nva:BookSeries .
+
+nva:title a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "title" ;
+  rdfs:comment "A term used as a name or a title for a thing" ;
+  rdfs:subPropertyOf rdfs:label ;
+  rdfs:domain rdfs:Class ; # generic, using nva:Class as scope
+  rdfs:range xsd:String .
+
+nva:seriesNumber a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "seriesNumber" ;
+  rdfs:comment "Denotes a place in a structured sequence of publications" ;
+  rdfs:domain nva:PublicationContext ;
+  rdfs:range xsd:string .
+
+# Note: this is an Organization…
+
+nva:publisher a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "publisher" ;
+  rdfs:comment "Denotes an organization that has previously had responsibility for publishing a resource" ;
+  rdfs:domain nva:PublicationContext ;
+  rdfs:range xsd:PublishingHouse .
+
+nva:isbn a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "isbn" ;
+  rdfs:subPropertyOf nva:identifier ;
+  rdfs:comment "Denotes a standard identifier of type ISBN" ;
+  rdfs:domain nva:PublicationContext ;
+  rdfs:range xsd:string .
+
+nva:onlineIssn a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "onlineIssn" ;
+  rdfs:subPropertyOf nva:identifier ;
+  rdfs:comment "Denotes a standard identifier of type online ISSN" ;
+  rdfs:domain nva:Periodical ;
+  rdfs:range xsd:string .
+
+nva:printIssn a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "printIssn" ;
+  rdfs:subPropertyOf nva:identifier ;
+  rdfs:comment "Denotes a standard identifier of type print ISSN" ;
+  rdfs:domain nva:Periodical ;
+  rdfs:range xsd:string .
+
+# The Journal articles should inherit some common base class
+
+nva:volume a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "volume" ;
+  rdfs:comment "Denotes a volume in a periodical print run" ;
+  rdfs:domain nva:FeatureArticle, nva:JournalArticle, nva:JournalCorrigendum, nva:JournalInterview, nva:JournalLeader, nva:JournalLetter, nva:JournalReview ;
+  rdfs:range xsd:string .
+
+nva:issue a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "issue" ;
+  rdfs:comment "Denotes a issue in a periodical volume" ;
+  rdfs:domain nva:FeatureArticle, nva:JournalArticle, nva:JournalCorrigendum, nva:JournalInterview, nva:JournalLeader, nva:JournalLetter, nva:JournalReview ;
+  rdfs:range xsd:string .
+
+nva:articleNumber a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "articleNumber" ;
+  rdfs:subPropertyOf nva:identifier ;
+  rdfs:comment "Denotes a unique identifier for a journal article" ;
+  rdfs:domain nva:FeatureArticle, nva:JournalArticle, nva:JournalCorrigendum, nva:JournalInterview, nva:JournalLeader, nva:JournalLetter, nva:JournalReview ;
+  rdfs:range xsd:string .
+
+nva:contentType a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "contentType" ;
+  rdfs:comment "Denotes the type of content of a journal article" ;
+  rdfs:domain nva:FeatureArticle, nva:JournalArticle, nva:JournalCorrigendum, nva:JournalInterview, nva:JournalLeader, nva:JournalLetter, nva:JournalReview ;
+  rdfs:range nva:JournalArticleContentType .
+
+nva:publicationInstance a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "publicationInstance" ;
+  rdfs:comment "Denotes a physical description of the resource" ;
+  rdfs:domain nva:Reference ;
+  rdfs:range nva:PublicationInstance .
+
+# Here, we have an issue — pages is also used as a term inside MonographPages…whoops.
+
+nva:pages a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "pages" ;
+  rdfs:comment "Denotes a physical description of the number of pages in a resource" ;
+  rdfs:domain nva:PublicationInstance ; # Also, nva:MonographPages
+  rdfs:range nva:MonographPages, nva:Range . # Also xsd:string
+
+nva:introduction a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "introduction" ;
+  rdfs:comment "Denotes a the pages of a monograph that are the introduction" ;
+  rdfs:domain nva:MonographPages ;
+  rdfs:range nva:Range .
+
+nva:begin a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "begin" ;
+  rdfs:comment "Denotes a the start of a range of pages" ;
+  rdfs:domain nva:Range ;
+  rdfs:range xsd:string .
+
+nva:end a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "end" ;
+  rdfs:comment "Denotes a the end of a range of pages" ;
+  rdfs:domain nva:Range ;
+  rdfs:range xsd:string .
+
+nva:illustrated a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "illustrated" ;
+  rdfs:comment "Denotes an illustrated volume" ;
+  rdfs:domain nva:MonographPages ;
+  rdfs:range xsd:boolean .
+
+nva:peerReviewed a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "peerReviewed" ;
+  rdfs:comment "Denotes a Publication that has been peer reviewed" ;
+  rdfs:domain nva:PublicationInstance ;
+  rdfs:range xsd:boolean .
+
+nva:linkedContext a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "linkedContext" ;
+  rdfs:comment "Denotes a link to another resource that the resource is a logical part of" ;
+  rdfs:domain nva:ChapterArticle ;
+  rdfs:range nva:publicationContext .
+
+nva:submittedDate a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "submittedDate" ;
+  rdfs:comment "Denotes a date for submission" ;
+  rdfs:domain nva:DegreeBachelor, nva:DegreeMaster, nva:DegreePhd, nva:OtherStudentWork ;
+  rdfs:range nva:PublicationDate .
+
+nva:corrigendumFor a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "corrigendumFor" ;
+  rdfs:comment "Denotes an article for which a JournalCorrigendum is a correction " ;
+  rdfs:domain nva:JournalCorrigendum ;
+  rdfs:range nva:PublicationDate .
+
+nva:metadataSource a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "metadataSource" ;
+  rdfs:comment "Denotes an original source for imported metadata" ;
+  rdfs:domain nva:EntityDescription ;
   rdfs:range xsd:anyURI .
 
-:hasAbstract a rdf:Property ;
-  rdfs:subPropertyOf dcterms:description ;
-  rdfs:comment "The original language abstract for the publication" ;
-  rdfs:domain :EntityDescription ;
+nva:abstract a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "abstract" ;
+  rdfs:comment "Denotes a formal description of a resource that is typically included in the resource" ;
+  rdfs:domain nva:EntityDescription ;
   rdfs:range xsd:string .
 
-:hasTag a rdf:Property ;
-  rdfs:subPropertyOf dcterms:subject ;
-  rdfs:comment "A natural language string describing the content" ;
-  rdfs:domain :EntityDescription ;
+nva:fileSet a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "fileSet" ;
+  rdfs:comment "Denotes a set of data files associated with a resource" ;
+  rdfs:domain nva:Resource ;
+  rdfs:range nva:FileSet .
+
+nva:file a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "file" ;
+  rdfs:comment "Denotes a data file associated with a resource" ;
+  rdfs:domain nva:FileSet ;
+  rdfs:range nva:File .
+
+nva:mimeType a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "mimeType" ;
+  rdfs:comment "Denotes a mime-type for a file" ;
+  rdfs:domain nva:File ;
   rdfs:range xsd:string .
 
-:hasNPISubjectHeading a rdf:Property ;
-  rdfs:subPropertyOf dcterms:subject ;
-  rdfs:comment "A NPI subject heading identifier, see https://npi.nsd.no/dok/bakgrunn2003/Norskvitdisinnst.pdf" ;
-  rdfs:domain :EntityDescription ;
-  rdfs:range xsd:string .
+nva:size a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "size" ;
+  rdfs:comment "Denotes a mime-type for a file" ;
+  rdfs:domain nva:File ;
+  rdfs:range xsd:long .
 
-:hasDescription a rdf:Property ;
-  rdfs:subPropertyOf dcterms:description ;
-  rdfs:comment "A free-text description of the publication" ;
-  rdfs:domain :EntityDescription ;
-  rdfs:range xsd:string .
+nva:license a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "license" ;
+  rdfs:comment "Denotes a license for a file" ;
+  rdfs:domain nva:File ;
+  rdfs:range nva:License .
 
-:Pages a rdfs:Class ;
-  rdfs:comment "The extent of a document" .
+nva:administrativeAgreement a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "administrativeAgreement" ;
+  rdfs:comment "Denotes that a file is an administrative agreement" ;
+  rdfs:domain nva:File ;
+  rdfs:range xsd:boolean .
 
-:hasPages a rdf:Property ;
-  rdfs:comment "The relationship between a pages object and an EntityDescription" ;
-  rdfs:domain :PublicationInstance ;
-  rdfs:range :Pages .
+nva:publisherAuthority a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "publisherAuthority" ;
+  rdfs:comment "Denotes that an owner may legally publish a file" ;
+  rdfs:domain nva:File ;
+  rdfs:range xsd:boolean .
 
-:begins a rdf:Property ;
-  rdfs:comment "The starting point of a range" ;
-  rdfs:domain :Pages ;
-  rdfs:range xsd:string .
-
-:ends a rdf:Property ;
-  rdfs:comment "The ending point of a range" ;
-  rdfs:domain :Pages ;
-  rdfs:range xsd:string .
-
-:hasArpId a rdf:Property ;
-  rdfs:subPropertyOf dcterms:identifier ;
-  rdfs:comment "This is an ARP identifier sourced from a third party, which must be verified and fully qualified before it is used as :hasIdentifier" ;
-  rdfs:domain :Identity ;
-  rdfs:range xsd:string .
-
-:hasOrcid a rdf:Property ;
-  rdfs:subPropertyOf dcterms:identifier ;
-  rdfs:comment "An externally sourced ORCID" ;
-  rdfs:domain :Identity ;
-  rdfs:range xsd:string .
-
-:Project a rdfs:Class ;
-  rdfs:comment "A Project of any kind (administrative, research, etc.)" .
-
-:ResearchProject a rdfs:Class ;
-  rdfs:comment "A research project" ;
-  rdfs:subClassOf :Project .
-
-:hasProject a rdf:Property ;
-  rdfs:comment "The relationship between an Publication and a Project" ;
-  rdfs:domain :Publication ;
-  rdfs:range :Project, :ResearchProject .
-
-:Grant a rdfs:Class ;
-  rdfs:comment "A Grant from a financing body" .
-
-:hasGrant a rdf:Property ;
-  rdfs:comment "The Grant ID of a Project" ;
-  rdfs:domain :ResearchProject ;
-  rdfs:range :Grant .
-
-:hasSource a rdf:Property ;
-  rdfs:comment "The source of funding for a Grant" ;
-  rdfs:domain :Grant ;
-  rdfs:range  xsd:string .
-
-:Approval a rdfs:Class ;
-  rdfs:comment "An Approval from an approvals body" .
-
-:hasApproval  a rdf:Property ;
-  rdfs:comment "The Approval of a Project" ;
-  rdfs:domain :ResearchProject ;
-  rdfs:range :Approval .
-
-:hasApprovalDate a rdf:Property ;
-  rdfs:comment "The date of an Approval" ;
-  rdfs:domain :Approval ;
+nva:embargoDate a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "embargoDate" ;
+  rdfs:comment "Denotes a point in time before which a file may not be published" ;
+  rdfs:domain nva:File ;
   rdfs:range xsd:dateTime .
 
-:hasApprovedBy a rdf:Property ;
-  rdfs:comment "The body that approved the Approval" ;
-  rdfs:domain :Approval;
+nva:project a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "project" ;
+  rdfs:comment "Denotes a project under which a resource was produced" ;
+  rdfs:domain nva:Resource ;
+  rdfs:range nva:Project .
+
+nva:grant a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "grant" ;
+  rdfs:comment "Denotes a funding stream for a project" ;
+  rdfs:domain nva:Project ;
+  rdfs:range nva:Grant .
+
+# Source is also used for AdditionalIdentifiers…whoops.
+
+nva:source a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "source" ;
+  rdfs:comment "Denotes a source (organization) for a funding stream" ;
+  rdfs:domain nva:Grant ;
   rdfs:range xsd:string .
 
-:hasApprovalStatus a rdf:Property ;
-  rdfs:comment "The status of an Approval" ;
-  rdfs:domain :Approval ;
+# for some reason we have a string as an "id" in Grant…this isn't good.
+
+nva:approval a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "approval" ;
+  rdfs:comment "Denotes an approval for a Project" ;
+  rdfs:domain nva:Project ;
+  rdfs:range nva:Approval .
+
+nva:approvedBy a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "approvedBy" ;
+  rdfs:comment "Denotes a name of a body approving a project" ;
+  rdfs:domain nva:Approval ;
   rdfs:range xsd:string .
 
-:hasApplicationCode a rdf:Property ;
-  rdfs:comment "The application code for an Approval" ;
-  rdfs:domain :Approval ;
+nva:approvalStatus a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "approvalStatus" ;
+  rdfs:comment "Denotes a status of an approval" ;
+  rdfs:domain nva:Approval ;
   rdfs:range xsd:string .
 
-:PublicationContext a rdfs:Class ;
-  rdfs:comment "A class denoting the context of a publication, where the publication was published" .
-
-:PublicationInstance a rdfs:Class ;
-  rdfs:comment "A class denoting the exact instance where a publication occurred" .
-
-:Reference a rdfs:Class ;
-  rdfs:comment "A class denoting an existing, external publication" .
-
-:hasPublicationContext a rdf:Property ;
-  rdfs:comment "The relationship between a Reference and a Publication context" ;
-  rdfs:domain :Reference ;
-  rdfs:range :PublicationContext .
-
-:hasPublicationInstance a rdf:Property ;
-  rdfs:comment "The relationship between a Reference and the instance of the context in which it was published" ;
-  rdfs:domain :Reference ;
-  rdfs:range :PublicationInstance .
-
-:hasVolume a rdf:Property ;
-  rdfs:comment "The volume of a Publication instance (typically journal articles)" ;
-  rdfs:domain :PublicationInstance ;
+nva:applicationCode a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:subPropertyOf nva:identifier ;
+  rdfs:label "applicationCode" ;
+  rdfs:comment "Denotes an identifier for the approval" ;
+  rdfs:domain nva:Approval ;
   rdfs:range xsd:string .
 
-:hasIssue a rdf:Property ;
-  rdfs:comment "The issue of a Publication instance (typically journal articles)" ;
-  rdfs:domain :PublicationInstance ;
+nva:additionalIdentifier a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "additionalIdentifier" ;
+  rdfs:comment "Denotes an identifier associated with a version of a resource" ;
+  rdfs:domain nva:Class ;
+  rdfs:range nva:AdditionalIdentifier .
+
+nva:value a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "value" ;
+  rdfs:comment "Denotes a value for something" ;
+  rdfs:domain nva:Class ;
   rdfs:range xsd:string .
 
-:hasArticleNumber a rdf:Property ;
-  rdfs:comment "The number given to articles by certain journals" ;
-  rdfs:domain :PublicationInstance ;
-  rdfs:range xsd:string .
-
-:hasNpiLevel a rdf:Property ;
-  rdfs:comment "The NPI level of the journal/publisher of the Publication context" ;
-  rdfs:domain :PublicationContext ;
-  rdfs:range xsd:string .
-
-:isOpenAccess a rdf:Property ;
-  rdfs:comment "The open access status of a Publication context" ;
-  rdfs:domain :PublicationContext ;
-  rdfs:range xsd:boolean .
-
-:isPeerReviewed a rdf:Property ;
-  rdfs:comment "Whether a Publication context is peer-reviewed or not" ;
-  rdfs:domain :PublicationInstance ;
-  rdfs:range xsd:boolean .
-
-:hasDoi a rdf:Property ;
-  rdfs:comment "The doi of a Reference" ;
-  rdfs:domain :Reference ;
+nva:subject a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "subject" ;
+  rdfs:comment "Denotes a topic of a resource" ;
+  rdfs:domain nva:Resource ;
   rdfs:range xsd:anyURI .
 
-:isAdminstrativeAgreement a rdf:Property ;
-  rdfs:comment "Indication of whether a file is an administrtative agreement or not" ;
-  rdfs:domain :File ;
-  rdfs:range xsd:boolean .
-
-:isPublisherAuthority a rdf:Property ;
-  rdfs:comment "Indication of whether a file's owner also has the authority to publish a file" ;
-  rdfs:domain :File ;
-  rdfs:range xsd:boolean .
-
-:hasEmbargoDate a rdf:Property ;
-  rdfs:comment "The date on which a publishing embargo on a file elapses" ;
-  rdfs:domain :File ;
-  rdfs:range xsd:date .
-
-:hasReference a rdf:Property ;
-  rdfs:comment "The relationship between an entity description and a reference" ;
-  rdfs:domain :EntityDescription ;
-  rdfs:range :Reference .
-
-:hasOriginalMetadataSource a rdf:Property ;
-  rdfs:comment "The source from which metadata was extracted" ;
-  rdfs:domain :EntityDescription ;
-  rdfs:range xsd:anyURI .
-
-:isCorrespondingAuthor a rdf:Property ;
-  rdfs:comment "An indication that the author is a corresponding author for a publication" ;
-  rdfs:domain :Contributor ;
-  rdfs:range xsd:boolean .
-
-:hasEmail a rdf:Property ;
-  rdfs:comment "The email of a contributor" ;
-  rdfs:domain :Contributor ;
+nva:modelVersion a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "modelVersion" ;
+  rdfs:comment "Denotes a version of the NVA model that was used for the representation" ;
+  rdfs:domain nva:Resource ;
   rdfs:range xsd:string .
 
-:subject a rdf:Property ;
-  rdfs:comment "The major topic or theme of the resource, classified according to a controlled vocabulary" ;
-  rdfs:domain :Publication ;
-  rdfs:range xsd:anyURI .
+nva:place a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "place" ;
+  rdfs:comment "Denotes a geographic location where an event has occurred" ;
+  rdfs:domain nva:Event ;
+  rdfs:range nva:Place .
+
+nva:time a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "time" ;
+  rdfs:comment "Denotes a temporal aspect of an event" ;
+  rdfs:domain nva:Event ;
+  rdfs:range nva:Time .
+
+nva:agent a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "agent" ;
+  rdfs:comment "Denotes a actor causing an event" ;
+  rdfs:domain nva:Resource ;
+  rdfs:range nva:Agent .
+
+nva:organizer a rdf:Property ;
+  rdfs:subPropertyOf nva:agent ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "organizer" ;
+  rdfs:comment "Denotes an Agent who caused a meeting to occur" ;
+  rdfs:domain nva:Meeting ;
+  rdfs:range nva:Agent .
+
+nva:expires a rdf:Property ;
+  rdfs:isDefinedBy nva: ;
+  rdfs:label "expires" ;
+  rdfs:comment "Denotes when a file ceases to exist" ;
+  rdfs:domain nva:File ;
+  rdfs:range xsd:dateTime .
